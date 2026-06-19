@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌈 Mi Mundo de Aprendizaje</title>
+  <meta name="description" content="Aplicación educativa interactiva para niñas de 1° de primaria." />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ══════════════════════════════════════════
+       RESET & VARIABLES
+    ══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink:      #FF6BB5;  --pink-d:   #E94FA0;
+      --purple:    #A855F7;  --purple-d: #7C3AED;
+      --yellow:    #FFD93D;  --yellow-d: #F5B800;
+      --mint:      #4ECCA3;  --mint-d:   #2AB88A;
+      --sky:       #60C5FF;  --sky-d:    #3AABF0;
+      --orange:    #FF8A3D;  --orange-d: #E06B1A;
+      --white:     #FFFFFF;
+      --sh:        rgba(0,0,0,0.14);
+    }
+
+    html, body { width: 100%; min-height: 100vh; font-family: 'Nunito', sans-serif; overflow-x: hidden; }
+
+    body {
+      background: linear-gradient(135deg, #FFF0F8 0%, #F0EEFF 30%, #E8F8FF 60%, #FFFCE8 100%);
+      background-attachment: fixed;
+    }
+
+    /* ══════════════════════════════════════════
+       BUBBLES
+    ══════════════════════════════════════════ */
+    .bubbles-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .bubble { position: absolute; border-radius: 50%; opacity: .18; animation: floatUp linear infinite; }
+    @keyframes floatUp {
+      0%   { transform: translateY(110vh) scale(.8); opacity: 0; }
+      10%  { opacity: .18; }
+      90%  { opacity: .18; }
+      100% { transform: translateY(-15vh) scale(1.1); opacity: 0; }
+    }
+
+    /* ══════════════════════════════════════════
+       SCREENS
+    ══════════════════════════════════════════ */
+    #app { position: relative; z-index: 1; min-height: 100vh; }
+
+    .screen { display: none; min-height: 100vh; padding: 20px; animation: fadeSlide .5s ease; }
+    .screen.active { display: flex; flex-direction: column; align-items: center; }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ══════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════ */
+    .app-header { text-align: center; margin-bottom: 8px; animation: bounceIn .8s cubic-bezier(.36,.07,.19,.97); }
+
+    @keyframes bounceIn {
+      0%   { transform: scale(.3); opacity: 0; }
+      50%  { transform: scale(1.08); opacity: 1; }
+      70%  { transform: scale(.95); }
+      100% { transform: scale(1); }
+    }
+
+    .app-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(2.2rem, 7vw, 4.2rem);
+      background: linear-gradient(135deg, var(--pink), var(--purple), var(--sky));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      filter: drop-shadow(2px 3px 0 rgba(168,85,247,.22));
+    }
+    .app-subtitle { font-size: clamp(1rem,3.5vw,1.4rem); color: var(--purple); font-weight: 700; margin-top: 4px; }
+    .star-row { font-size: 1.8rem; display: inline-block; animation: spin 8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ══════════════════════════════════════════
+       MASCOT
+    ══════════════════════════════════════════ */
+    .mascot-wrap { margin: 8px 0 18px; animation: mascotBounce 2.5s ease-in-out infinite; }
+    @keyframes mascotBounce { 0%,100%{transform:translateY(0)rotate(-2deg);} 50%{transform:translateY(-12px)rotate(2deg);} }
+    .mascot-svg { width: clamp(120px,22vw,170px); filter: drop-shadow(0 8px 16px rgba(168,85,247,.3)); }
+
+    /* ══════════════════════════════════════════
+       MENU CARDS
+    ══════════════════════════════════════════ */
+    .menu-label { font-family: 'Fredoka One', cursive; font-size: clamp(1.3rem,4vw,2rem); color: var(--purple-d); margin-bottom: 22px; }
+
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(255px,1fr));
+      gap: 26px; width: 100%; max-width: 940px; margin: 0 auto; padding: 0 8px 36px;
+    }
+
+    .activity-card {
+      background: #fff; border-radius: 26px; padding: 30px 22px 26px; text-align: center;
+      cursor: pointer; position: relative; overflow: hidden;
+      border: 4px solid transparent; box-shadow: 0 8px 24px var(--sh);
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s, border-color .2s;
+      user-select: none;
+    }
+    .activity-card::before {
+      content:''; position: absolute; inset:0; background: var(--cg); opacity:.08;
+      border-radius: inherit; transition: opacity .25s;
+    }
+    .activity-card:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 20px 40px var(--sh); border-color: var(--ca); }
+    .activity-card:hover::before { opacity: .16; }
+    .activity-card:active { transform: scale(.97); }
+
+    .card-loteria  { --cg: linear-gradient(135deg,var(--yellow),var(--orange)); --ca: var(--orange); }
+    .card-colorear { --cg: linear-gradient(135deg,var(--mint),var(--sky));      --ca: var(--mint-d); }
+    .card-vestir   { --cg: linear-gradient(135deg,var(--pink),var(--purple));   --ca: var(--pink-d); }
+
+    .card-icon-wrap {
+      width: 108px; height: 108px; border-radius: 50%; margin: 0 auto 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem; position: relative;
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .card-loteria  .card-icon-wrap { background: linear-gradient(135deg,var(--yellow),var(--orange)); }
+    .card-colorear .card-icon-wrap { background: linear-gradient(135deg,var(--mint),var(--sky)); }
+    .card-vestir   .card-icon-wrap { background: linear-gradient(135deg,var(--pink),var(--purple)); }
+    .activity-card:hover .card-icon-wrap { transform: rotate(-8deg) scale(1.14); }
+
+    .card-badge {
+      position: absolute; top:-5px; right:-5px; width:28px; height:28px; border-radius:50%;
+      background: var(--yellow); border:3px solid #fff; display:flex; align-items:center; justify-content:center;
+      font-size: .85rem; animation: wiggle 3s ease-in-out infinite;
+    }
+    @keyframes wiggle { 0%,100%{transform:rotate(-8deg);} 50%{transform:rotate(8deg);} }
+
+    .card-title { font-family:'Fredoka One',cursive; font-size: clamp(1.25rem,3.5vw,1.65rem); color:#3a2c6e; margin-bottom:7px; }
+    .card-desc  { font-size: clamp(.82rem,2vw,.96rem); color:#6b5e9b; font-weight:700; line-height:1.5; }
+
+    .play-btn {
+      display: inline-block; margin-top: 16px; padding: 12px 30px; border-radius: 50px;
+      font-family: 'Fredoka One', cursive; font-size: 1.1rem; color: #fff;
+      border: none; cursor: pointer; box-shadow: 0 5px 0 rgba(0,0,0,.14);
+      transition: filter .2s, transform .15s;
+    }
+    .card-loteria  .play-btn { background: linear-gradient(135deg,var(--orange),var(--yellow-d)); }
+    .card-colorear .play-btn { background: linear-gradient(135deg,var(--mint-d),var(--sky-d)); }
+    .card-vestir   .play-btn { background: linear-gradient(135deg,var(--pink-d),var(--purple)); }
+    .play-btn:hover { filter: brightness(1.1); transform: translateY(-3px); }
+
+    /* ══════════════════════════════════════════
+       SHARED ACTIVITY ELEMENTS
+    ══════════════════════════════════════════ */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px;
+      background: linear-gradient(135deg,var(--purple),var(--pink)); color: #fff;
+      font-family:'Fredoka One',cursive; font-size: 1.1rem; border: none;
+      border-radius: 50px; cursor: pointer;
+      box-shadow: 0 5px 0 rgba(100,40,160,.28);
+      transition: transform .15s, filter .2s;
+      margin: 16px 0 18px; align-self: flex-start;
+    }
+    .back-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+    .activity-header { width: 100%; max-width: 920px; }
+
+    .activity-title { font-family:'Fredoka One',cursive; font-size: clamp(1.7rem,5vw,2.7rem); text-align:center; margin-bottom:10px; }
+    .col-orange { color: var(--orange); }
+    .col-mint   { color: var(--mint-d); }
+    .col-pink   { color: var(--pink-d); }
+
+    .app-footer { text-align:center; padding:16px; font-size:.84rem; color:#b0a0d0; font-weight:700; }
+
+    /* ══════════════════════════════════════════
+       CONFETTI
+    ══════════════════════════════════════════ */
+    .confetti-piece {
+      position: fixed; pointer-events: none; z-index: 9999;
+      top: -20px; border-radius: 3px; animation: confFall linear forwards;
+    }
+    @keyframes confFall { 0%{opacity:1;} 100%{transform:translateY(110vh)rotate(720deg);opacity:0;} }
+
+    /* ══════════════════════════════════════════
+       WIN OVERLAY
+    ══════════════════════════════════════════ */
+    #win-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 1000;
+      display: flex; align-items: center; justify-content: center; animation: fadeSlide .3s ease;
+    }
+    .win-box {
+      background: linear-gradient(135deg,#fff0f8,#f0eeff); border-radius: 32px;
+      padding: 40px 44px; text-align: center;
+      box-shadow: 0 20px 60px rgba(168,85,247,.38); max-width: 420px; width: 90%;
+      animation: popIn .4s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes popIn { from{transform:scale(.5);opacity:0;} to{transform:scale(1);opacity:1;} }
+    .win-emoji { font-size: 5rem; display: inline-block; animation: mascotBounce 1.5s ease-in-out infinite; }
+    .win-title { font-family:'Fredoka One',cursive; font-size: 2.4rem; color: var(--purple); margin: 12px 0 8px; }
+    .win-msg   { font-size: 1.05rem; color: #6b5e9b; font-weight: 700; }
+    .win-btns  { display: flex; gap: 12px; justify-content: center; margin-top: 22px; flex-wrap: wrap; }
+    .win-btn {
+      padding: 13px 26px; font-family:'Fredoka One',cursive; font-size: 1.1rem; color: #fff;
+      border: none; border-radius: 50px; cursor: pointer;
+      box-shadow: 0 5px 0 rgba(0,0,0,.14); transition: filter .2s, transform .15s;
+    }
+    .win-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+    .win-play { background: linear-gradient(135deg,var(--mint-d),var(--sky-d)); }
+    .win-menu { background: linear-gradient(135deg,var(--purple),var(--pink)); }
+
+    /* ══════════════════════════════════════════
+       LOTERÍA STYLES
+    ══════════════════════════════════════════ */
+    .lot-wrap { width:100%; max-width:920px; display:flex; flex-direction:column; gap:20px; }
+
+    .caller-area {
+      background: #fff; border-radius: 22px; padding: 22px;
+      text-align: center; box-shadow: 0 8px 24px var(--sh); border: 4px solid var(--yellow);
+    }
+    .caller-card {
+      display: inline-flex; flex-direction: column; align-items: center; gap: 6px;
+      background: linear-gradient(135deg,var(--yellow),var(--orange));
+      border-radius: 18px; padding: 18px 28px; min-width: 170px;
+      box-shadow: 0 6px 20px rgba(255,138,61,.35);
+      animation: popIn .4s cubic-bezier(.34,1.56,.64,1);
+    }
+    .caller-emoji { font-size: 3.8rem; line-height: 1; }
+    .caller-name  { font-family:'Fredoka One',cursive; font-size: 1.55rem; color: #fff; text-shadow: 1px 2px 0 rgba(0,0,0,.18); }
+    .caller-sub   { font-size: .9rem; color: #fff; font-weight: 700; opacity: .85; }
+    .caller-wait  { font-family:'Fredoka One',cursive; font-size: 1.35rem; color: #bbb; padding: 20px; }
+
+    .caller-controls { display: flex; gap: 12px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
+
+    .btn-draw {
+      padding: 14px 34px; font-family:'Fredoka One',cursive; font-size: 1.25rem;
+      background: linear-gradient(135deg,var(--orange),var(--yellow-d)); color: #fff;
+      border: none; border-radius: 50px; cursor: pointer;
+      box-shadow: 0 5px 0 rgba(0,0,0,.14); transition: transform .15s, filter .2s;
+    }
+    .btn-draw:hover  { filter: brightness(1.1); transform: translateY(-2px); }
+    .btn-draw:active { transform: translateY(2px); }
+    .btn-draw:disabled { background: #ddd; color: #aaa; cursor: not-allowed; box-shadow: none; transform: none; }
+
+    .btn-newgame {
+      padding: 14px 26px; font-family:'Fredoka One',cursive; font-size: 1.05rem;
+      background: linear-gradient(135deg,var(--purple),var(--pink)); color: #fff;
+      border: none; border-radius: 50px; cursor: pointer;
+      box-shadow: 0 5px 0 rgba(0,0,0,.14); transition: transform .15s, filter .2s;
+    }
+    .btn-newgame:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+    .called-row { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-top: 10px; }
+    .mini-called { font-size: 1.35rem; background: rgba(255,200,0,.18); border-radius: 8px; padding: 2px 5px; }
+
+    .player-board {
+      background: #fff; border-radius: 22px; padding: 22px;
+      box-shadow: 0 8px 24px var(--sh); border: 4px solid var(--pink);
+    }
+    .board-title { font-family:'Fredoka One',cursive; font-size: 1.25rem; color: var(--purple); text-align:center; margin-bottom:14px; }
+
+    .lot-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+
+    .lot-cell {
+      background: linear-gradient(135deg,#fffbe8,#fff5f5); border-radius: 12px;
+      padding: 8px 4px; text-align: center; cursor: pointer;
+      border: 3px solid #f0e0f0; position: relative; overflow: hidden;
+      transition: transform .18s, background .2s, border-color .18s;
+      user-select: none;
+    }
+    .lot-cell:hover { transform: scale(1.07); border-color: var(--pink); }
+    .lot-cell .ce { font-size: clamp(1.7rem,4vw,2.2rem); display: block; }
+    .lot-cell .cn { font-size: clamp(.6rem,1.5vw,.78rem); font-weight: 900; color: #5a4a7a; margin-top: 2px; }
+    .lot-cell.marked { background: linear-gradient(135deg,var(--yellow),var(--orange)); border-color: var(--orange-d); }
+    .lot-cell.marked .cn { color: #fff; }
+    .lot-cell.marked::after { content:'✔'; position:absolute; top:3px; right:5px; font-size:.9rem; color:#fff; font-weight:900; }
+    .lot-cell.shake { animation: shakeCell .4s ease; }
+    @keyframes shakeCell { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-6px);} 75%{transform:translateX(6px);} }
+
+    /* ══════════════════════════════════════════
+       COLOREAR STYLES
+    ══════════════════════════════════════════ */
+    .col-wrap { width:100%; max-width:860px; display:flex; flex-direction:column; align-items:center; gap:18px; }
+
+    .palette-bar {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+      background: #fff; border-radius: 18px; padding: 16px 22px;
+      box-shadow: 0 6px 20px var(--sh); border: 3px solid var(--mint);
+      width: 100%;
+    }
+    .palette-title { font-family:'Fredoka One',cursive; font-size: 1rem; color: var(--mint-d); width: 100%; text-align:center; margin-bottom: 2px; }
+
+    .chip {
+      display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 50px;
+      border: 4px solid transparent; cursor: pointer;
+      font-family:'Fredoka One',cursive; font-size: 1.05rem; color: #fff;
+      transition: transform .2s, border-color .15s, box-shadow .15s;
+      box-shadow: 0 4px 0 rgba(0,0,0,.12); user-select: none;
+    }
+    .chip:hover { transform: translateY(-3px) scale(1.06); }
+    .chip.sel { border-color: #fff !important; box-shadow: 0 0 0 4px rgba(0,0,0,.18), 0 4px 0 rgba(0,0,0,.12); transform: translateY(-3px) scale(1.1); }
+    .chip-num { background: rgba(255,255,255,.32); border-radius:50%; width:26px; height:26px; display:flex; align-items:center; justify-content:center; font-size:.95rem; font-weight:900; flex-shrink:0; }
+
+    .svg-wrap {
+      background: #fff; border-radius: 22px; padding: 18px;
+      box-shadow: 0 8px 24px var(--sh); border: 4px solid var(--mint);
+    }
+    .col-svg { width:100%; max-width:480px; height:auto; display:block; }
+
+    .czone { transition: fill .3s; cursor: pointer; }
+    .czone:hover { filter: brightness(.9); stroke-width: 3 !important; }
+
+    .prog-wrap { width:100%; max-width:480px; }
+    .prog-bar-bg { background: #f0f0f0; border-radius:20px; height:18px; overflow:hidden; border:2px solid #ddd; }
+    .prog-bar { height:100%; background:linear-gradient(90deg,var(--mint),var(--sky)); border-radius:20px; transition:width .4s ease; }
+    .prog-label { font-family:'Fredoka One',cursive; font-size:1rem; color:var(--mint-d); text-align:center; margin-top:4px; }
+
+    .btn-reset {
+      padding: 11px 26px; background: #eee; color: #888;
+      font-family:'Fredoka One',cursive; font-size:1rem; border: none;
+      border-radius: 50px; cursor: pointer; box-shadow:0 3px 0 rgba(0,0,0,.1);
+      transition: filter .2s, transform .15s; margin-bottom: 16px;
+    }
+    .btn-reset:hover { filter: brightness(.95); transform: translateY(-1px); }
+
+    /* ══════════════════════════════════════════
+       VESTIR STYLES
+    ══════════════════════════════════════════ */
+    .vest-wrap { width:100%; max-width:860px; display:flex; flex-direction:column; align-items:center; gap:18px; }
+
+    .instr-box {
+      background: linear-gradient(135deg,var(--pink),var(--purple)); color:#fff;
+      border-radius: 22px; padding: 22px 30px; text-align:center;
+      box-shadow: 0 8px 24px rgba(168,85,247,.32); width:100%;
+    }
+    .instr-step { font-size:.9rem; font-weight:700; opacity:.82; margin-bottom:5px; }
+    .instr-text { font-family:'Fredoka One',cursive; font-size:clamp(1.3rem,4vw,1.9rem); line-height:1.3; }
+
+    .vest-game { display:flex; gap:22px; align-items:flex-start; justify-content:center; width:100%; flex-wrap:wrap; }
+
+    .char-display {
+      background: #fff; border-radius: 22px; padding: 18px;
+      box-shadow: 0 8px 24px var(--sh); border: 4px solid var(--pink);
+      text-align: center; flex: 0 0 auto;
+    }
+    .char-label { font-family:'Fredoka One',cursive; color:var(--pink-d); font-size:.95rem; margin-bottom:10px; }
+
+    .opts-panel { display:flex; flex-direction:column; gap:12px; flex:1; min-width:200px; max-width:320px; }
+    .opts-title { font-family:'Fredoka One',cursive; font-size:1.2rem; color:var(--purple); text-align:center; }
+
+    .cloth-opt {
+      display: flex; align-items: center; gap: 13px; padding: 15px 18px;
+      border-radius: 16px; border: 4px solid transparent; background: #fff;
+      box-shadow: 0 4px 16px var(--sh); cursor: pointer;
+      font-family:'Fredoka One',cursive; font-size: 1.1rem; color: #3a2c6e;
+      transition: transform .2s, border-color .15s, box-shadow .15s;
+      user-select: none;
+    }
+    .cloth-opt:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 24px var(--sh); }
+    .cloth-opt .opt-ico { font-size: 2.1rem; width:50px; height:50px; display:flex; align-items:center; justify-content:center; border-radius:50%; flex-shrink:0; }
+
+    @keyframes correctFlash { 0%,100%{background:#fff;} 50%{background:#d5f5e3;} }
+    @keyframes wrongShake  { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
+
+    .step-dots { display:flex; gap:8px; justify-content:center; }
+    .sdot { width:15px; height:15px; border-radius:50%; background:#ddd; border:3px solid #fff; box-shadow:0 2px 5px rgba(0,0,0,.1); transition:background .3s,transform .3s; }
+    .sdot.done    { background:var(--mint); transform:scale(1.15); }
+    .sdot.current { background:var(--pink); transform:scale(1.3); animation:pulseDot 1s ease-in-out infinite; }
+    @keyframes pulseDot { 0%,100%{box-shadow:0 0 0 0 rgba(255,107,181,.5);} 50%{box-shadow:0 0 0 8px rgba(255,107,181,0);} }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════ */
+    @media(max-width:580px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .vest-game  { flex-direction: column; }
+      .opts-panel { max-width: 100%; width: 100%; }
+    }
+    @media(max-width:420px) {
+      .lot-grid { gap: 5px; }
+      .lot-cell .ce { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Bubbles -->
+<div class="bubbles-bg" id="bubblesContainer"></div>
+
+<div id="app">
+
+  <!-- ══════════════════════════════════
+       MENÚ PRINCIPAL
+  ══════════════════════════════════ -->
+  <section id="screen-menu" class="screen active">
+
+    <header class="app-header">
+      <div class="star-row">✨</div>
+      <h1 class="app-title">¡Mi Mundo de Aprendizaje! 🌈</h1>
+      <p class="app-subtitle">Elige tu actividad favorita 🎉</p>
+    </header>
+
+    <!-- Mascot -->
+    <div class="mascot-wrap" aria-hidden="true">
+      <svg class="mascot-svg" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="150" rx="52" ry="58" fill="#FFD93D"/>
+        <ellipse cx="100" cy="175" rx="52" ry="33" fill="#FF6BB5" opacity=".7"/>
+        <ellipse cx="100" cy="192" rx="52" ry="26" fill="#A855F7" opacity=".6"/>
+        <ellipse cx="52"  cy="148" rx="14" ry="9" fill="#FFD93D" transform="rotate(-30 52 148)"/>
+        <ellipse cx="148" cy="148" rx="14" ry="9" fill="#FFD93D" transform="rotate(30 148 148)"/>
+        <circle cx="100" cy="88" r="52" fill="#FFE8B6"/>
+        <ellipse cx="100" cy="46" rx="50" ry="22" fill="#A0522D"/>
+        <ellipse cx="60"  cy="68" rx="16" ry="36" fill="#A0522D"/>
+        <ellipse cx="140" cy="68" rx="16" ry="36" fill="#A0522D"/>
+        <g transform="translate(44,40)">
+          <polygon points="0,0 14,-8 14,8" fill="#FF6BB5"/>
+          <polygon points="28,0 14,-8 14,8" fill="#FF6BB5"/>
+          <circle cx="14" cy="0" r="5" fill="#E94FA0"/>
+        </g>
+        <ellipse cx="83"  cy="92" rx="9" ry="10" fill="#fff"/>
+        <ellipse cx="117" cy="92" rx="9" ry="10" fill="#fff"/>
+        <circle cx="85"   cy="93" r="5.5" fill="#3a2c6e"/>
+        <circle cx="119"  cy="93" r="5.5" fill="#3a2c6e"/>
+        <circle cx="87"   cy="91" r="2" fill="#fff"/>
+        <circle cx="121"  cy="91" r="2" fill="#fff"/>
+        <line x1="76" y1="84" x2="72" y2="79" stroke="#3a2c6e" stroke-width="2" stroke-linecap="round"/>
+        <line x1="83" y1="82" x2="82" y2="77" stroke="#3a2c6e" stroke-width="2" stroke-linecap="round"/>
+        <line x1="124" y1="84" x2="128" y2="79" stroke="#3a2c6e" stroke-width="2" stroke-linecap="round"/>
+        <line x1="117" y1="82" x2="118" y2="77" stroke="#3a2c6e" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="72"  cy="105" rx="10" ry="6" fill="#FF9EC4" opacity=".55"/>
+        <ellipse cx="128" cy="105" rx="10" ry="6" fill="#FF9EC4" opacity=".55"/>
+        <path d="M85 113 Q100 128 115 113" stroke="#3a2c6e" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <text x="14"  y="30"  font-size="18" fill="#FFD93D">★</text>
+        <text x="168" y="28"  font-size="14" fill="#FF6BB5">✦</text>
+        <text x="6"   y="120" font-size="12" fill="#A855F7">✦</text>
+        <text x="178" y="115" font-size="16" fill="#4ECCA3">★</text>
+      </svg>
+    </div>
+
+    <p class="menu-label">🎮 ¿Qué quieres jugar hoy?</p>
+
+    <div class="cards-grid">
+      <!-- Card Lotería -->
+      <div class="activity-card card-loteria" role="button" tabindex="0"
+           id="btn-loteria" onclick="goTo('loteria')" onkeydown="if(event.key==='Enter'||event.key===' ')goTo('loteria')">
+        <div class="card-icon-wrap">🎴<span class="card-badge">🌟</span></div>
+        <h2 class="card-title">Lotería<br>Interactiva</h2>
+        <p class="card-desc">¡Marca tus cartones y gana premios divertidos!</p>
+        <button class="play-btn" tabindex="-1">¡Jugar! 🎉</button>
+      </div>
+      <!-- Card Colorear -->
+      <div class="activity-card card-colorear" role="button" tabindex="0"
+           id="btn-colorear" onclick="goTo('colorear')" onkeydown="if(event.key==='Enter'||event.key===' ')goTo('colorear')">
+        <div class="card-icon-wrap">🎨<span class="card-badge">✏️</span></div>
+        <h2 class="card-title">Colorear<br>por Números</h2>
+        <p class="card-desc">¡Pinta siguiendo los números y verás la magia!</p>
+        <button class="play-btn" tabindex="-1">¡Pintar! 🖌️</button>
+      </div>
+      <!-- Card Vestir -->
+      <div class="activity-card card-vestir" role="button" tabindex="0"
+           id="btn-vestir" onclick="goTo('vestir')" onkeydown="if(event.key==='Enter'||event.key===' ')goTo('vestir')">
+        <div class="card-icon-wrap">👗<span class="card-badge">💖</span></div>
+        <h2 class="card-title">Viste al<br>Personaje</h2>
+        <p class="card-desc">¡Sigue las instrucciones y crea el mejor atuendo!</p>
+        <button class="play-btn" tabindex="-1">¡Vestir! 👗</button>
+      </div>
+    </div>
+
+    <footer class="app-footer">Hecho con 💜 para aprender jugando · Primero de Primaria</footer>
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       LOTERÍA
+  ══════════════════════════════════ -->
+  <section id="screen-loteria" class="screen">
+    <div class="activity-header">
+      <button class="back-btn" onclick="goTo('menu')">← Menú</button>
+      <h2 class="activity-title col-orange">🎴 Lotería Interactiva</h2>
+    </div>
+    <div class="lot-wrap" id="lot-content"></div>
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       COLOREAR
+  ══════════════════════════════════ -->
+  <section id="screen-colorear" class="screen">
+    <div class="activity-header">
+      <button class="back-btn" onclick="goTo('menu')">← Menú</button>
+      <h2 class="activity-title col-mint">🎨 Colorear por Números</h2>
+    </div>
+    <div class="col-wrap" id="col-content"></div>
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       VESTIR
+  ══════════════════════════════════ -->
+  <section id="screen-vestir" class="screen">
+    <div class="activity-header">
+      <button class="back-btn" onclick="goTo('menu')">← Menú</button>
+      <h2 class="activity-title col-pink">👗 Viste al Personaje</h2>
+    </div>
+    <div class="vest-wrap" id="vest-content"></div>
+  </section>
+
+</div><!-- /#app -->
+
+<!-- Win overlay -->
+<div id="win-overlay" style="display:none;"></div>
+
+
+<!-- ══════════════════════════════════════════════════
+     J A V A S C R I P T
+══════════════════════════════════════════════════ -->
+<script>
+"use strict";
+
+/* ─────────────────────────────────────────
+   NAVIGATION
+───────────────────────────────────────── */
+const SCREENS = {
+  menu:     document.getElementById('screen-menu'),
+  loteria:  document.getElementById('screen-loteria'),
+  colorear: document.getElementById('screen-colorear'),
+  vestir:   document.getElementById('screen-vestir'),
+};
+
+let lotInited = false, colInited = false, vestInited = false;
+
+function goTo(id) {
+  Object.values(SCREENS).forEach(s => s.classList.remove('active'));
+  SCREENS[id].classList.add('active');
+  window.scrollTo({ top:0, behavior:'smooth' });
+
+  if (id === 'loteria'  && !lotInited)  { initLoteria();  lotInited = true; }
+  if (id === 'colorear' && !colInited)  { initColorear(); colInited = true; }
+  if (id === 'vestir'   && !vestInited) { initVestir();   vestInited = true; }
+
+  if (id !== 'menu') launchConfetti(38);
+}
+
+/* ─────────────────────────────────────────
+   WEB AUDIO — SOUND EFFECTS
+───────────────────────────────────────── */
+let _actx;
+function ac() { return _actx || (_actx = new (window.AudioContext||window.webkitAudioContext)()); }
+
+function tone(freq, type='sine', dur=.15, vol=.25) {
+  try {
+    const ctx=ac(), osc=ctx.createOscillator(), g=ctx.createGain();
+    osc.connect(g); g.connect(ctx.destination);
+    osc.type=type; osc.frequency.value=freq;
+    g.gain.setValueAtTime(vol, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+dur);
+    osc.start(); osc.stop(ctx.currentTime+dur);
+  } catch(e){}
+}
+
+const sfx = {
+  draw:    ()=> tone(660,'sine',.18,.22),
+  mark:    ()=> tone(880,'sine',.12,.2),
+  error:   ()=> tone(200,'sawtooth',.3,.18),
+  correct: ()=> [523,659,784].forEach((f,i)=>setTimeout(()=>tone(f,'sine',.18,.22),i*80)),
+  win:     ()=> [523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>tone(f,'triangle',.28,.28),i*95)),
+  paint:   (n)=> tone(440+n*70,'triangle',.14,.18),
+  chip:    (n)=> tone(400+n*60,'sine',.1,.18),
+};
+
+/* ─────────────────────────────────────────
+   CONFETTI
+───────────────────────────────────────── */
+const CONF_COLORS = ['#FF6BB5','#FFD93D','#4ECCA3','#60C5FF','#A855F7','#FF8A3D'];
+function launchConfetti(n=50) {
+  for(let i=0;i<n;i++) setTimeout(()=>{
+    const p=document.createElement('div');
+    p.className='confetti-piece';
+    p.style.cssText=`
+      left:${Math.random()*100}vw;
+      background:${CONF_COLORS[Math.random()*CONF_COLORS.length|0]};
+      width:${8+Math.random()*10}px; height:${8+Math.random()*10}px;
+      border-radius:${Math.random()>.5?'50%':'3px'};
+      animation-duration:${1.4+Math.random()*2}s;
+    `;
+    document.body.appendChild(p);
+    p.addEventListener('animationend',()=>p.remove());
+  }, i*22);
+}
+
+/* ─────────────────────────────────────────
+   WIN OVERLAY
+───────────────────────────────────────── */
+function showWin({emoji='🏆', title='¡Ganaste!', msg='', onPlay, onMenu}) {
+  const ov = document.getElementById('win-overlay');
+  ov.innerHTML = `
+    <div class="win-box">
+      <div class="win-emoji">${emoji}</div>
+      <h2 class="win-title">${title}</h2>
+      <p class="win-msg">${msg}</p>
+      <div class="win-btns">
+        <button class="win-btn win-play" id="wplay">¡Otra vez! 🔄</button>
+        <button class="win-btn win-menu" id="wmenu">Menú 🏠</button>
+      </div>
+    </div>`;
+  ov.style.display = 'flex';
+  launchConfetti(90);
+  sfx.win();
+  document.getElementById('wplay').onclick = ()=>{ ov.style.display='none'; if(onPlay) onPlay(); };
+  document.getElementById('wmenu').onclick = ()=>{ ov.style.display='none'; goTo('menu'); };
+}
+
+/* ─────────────────────────────────────────
+   FLOATING BUBBLES BG
+───────────────────────────────────────── */
+(()=>{
+  const con=document.getElementById('bubblesContainer');
+  const colors=['#FF6BB5','#A855F7','#FFD93D','#4ECCA3','#60C5FF','#FF8A3D'];
+  for(let i=0;i<18;i++){
+    const b=document.createElement('div'); b.className='bubble';
+    const sz=30+Math.random()*80;
+    b.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}vw;
+      background:${colors[Math.random()*colors.length|0]};
+      animation-duration:${10+Math.random()*14}s;animation-delay:${Math.random()*14}s;`;
+    con.appendChild(b);
+  }
+})();
+
+
+/* ══════════════════════════════════════════════════════
+   ████  ACTIVIDAD 1 — LOTERÍA INTERACTIVA  ████
+══════════════════════════════════════════════════════ */
+
+const LOT_DECK = [
+  {id:1,  e:'🌸', n:'Rosa'},       {id:2,  e:'🦋', n:'Mariposa'},
+  {id:3,  e:'☀️', n:'Sol'},        {id:4,  e:'🌙', n:'Luna'},
+  {id:5,  e:'⭐', n:'Estrella'},   {id:6,  e:'🦜', n:'Loro'},
+  {id:7,  e:'🐱', n:'Gatito'},     {id:8,  e:'🐶', n:'Perrito'},
+  {id:9,  e:'🎂', n:'Pastel'},     {id:10, e:'🍎', n:'Manzana'},
+  {id:11, e:'🌈', n:'Arcoíris'},   {id:12, e:'🚂', n:'Tren'},
+  {id:13, e:'🏠', n:'Casita'},     {id:14, e:'🌺', n:'Flor'},
+  {id:15, e:'🐸', n:'Ranita'},     {id:16, e:'🦁', n:'León'},
+  {id:17, e:'🍭', n:'Paleta'},     {id:18, e:'🎈', n:'Globo'},
+  {id:19, e:'🐝', n:'Abeja'},      {id:20, e:'🦊', n:'Zorrito'},
+  {id:21, e:'🌻', n:'Girasol'},    {id:22, e:'🐠', n:'Pececito'},
+  {id:23, e:'🦄', n:'Unicornio'},  {id:24, e:'🍓', n:'Fresa'},
+  {id:25, e:'🐢', n:'Tortuga'},    {id:26, e:'🦉', n:'Búho'},
+  {id:27, e:'🍒', n:'Cerezas'},    {id:28, e:'🐬', n:'Delfín'},
+  {id:29, e:'🧁', n:'Cupcake'},    {id:30, e:'🦀', n:'Cangrejo'},
+];
+
+let LS = {}; // Lotería State
+
+function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
+
+function initLoteria() {
+  const shuf = shuffle(LOT_DECK);
+  LS = {
+    playerCards: shuf.slice(0,16),
+    drawPile:    shuffle(LOT_DECK),
+    drawnIds:    [],
+    marked:      new Set(),
+    drawIdx:     0,
+    over:        false,
+  };
+  renderLoteria();
+}
+
+function newLoteria() { lotInited=false; initLoteria(); lotInited=true; }
+
+function renderLoteria() {
+  const el = document.getElementById('lot-content');
+  const last = LS.drawnIds.length ? LOT_DECK.find(c=>c.id===LS.drawnIds[LS.drawnIds.length-1]) : null;
+  const remaining = LS.drawPile.length - LS.drawIdx;
+
+  // Recent called (last 12)
+  const recentHtml = LS.drawnIds.slice(-12).map(id=>{
+    const c=LOT_DECK.find(d=>d.id===id);
+    return c?`<span class="mini-called" title="${c.n}">${c.e}</span>`:'';
+  }).join('');
+
+  // Player grid
+  const gridHtml = LS.playerCards.map(card=>`
+    <div class="lot-cell${LS.marked.has(card.id)?' marked':''}"
+         id="lcell-${card.id}" onclick="lotMark(${card.id})" title="${card.n}">
+      <span class="ce">${card.e}</span>
+      <span class="cn">${card.n}</span>
+    </div>
+  `).join('');
+
+  el.innerHTML = `
+    <!-- Caller -->
+    <div class="caller-area">
+      <h3 style="font-family:'Fredoka One',cursive;color:var(--orange);font-size:1.2rem;margin-bottom:12px;">
+        🎙️ Carta del turno:
+      </h3>
+      <div id="lot-caller">
+        ${last
+          ? `<div class="caller-card">
+               <span class="caller-emoji">${last.e}</span>
+               <span class="caller-name">${last.n}</span>
+               <span class="caller-sub">¡Búscala en tu cartón!</span>
+             </div>`
+          : `<p class="caller-wait">¡Presiona el botón para empezar! 👇</p>`
+        }
+      </div>
+      <div class="caller-controls">
+        <button class="btn-draw" id="lot-btn-draw"
+          onclick="lotDraw()"
+          ${LS.over||remaining===0?'disabled':''}>
+          ${remaining>0&&!LS.over?'🎴 ¡Sacar carta!':'Sin más cartas 😊'}
+        </button>
+        <button class="btn-newgame" onclick="newLoteria()">🔄 Nuevo juego</button>
+      </div>
+      ${LS.drawnIds.length?`
+        <p style="font-size:.82rem;color:#bbb;font-weight:700;margin-top:10px;">Últimas sacadas:</p>
+        <div class="called-row">${recentHtml}</div>
+      `:''}
+      <p style="font-size:.82rem;color:#ccc;font-weight:700;margin-top:8px;">
+        Cartas restantes: ${remaining} / ${LS.drawPile.length}
+      </p>
+    </div>
+
+    <!-- Board -->
+    <div class="player-board">
+      <p class="board-title">🃏 Tu cartón — ¡Toca cuando salga la carta!</p>
+      <div class="lot-grid">${gridHtml}</div>
+      <p style="text-align:center;font-size:.82rem;color:#ccc;font-weight:700;margin-top:10px;">
+        Marcadas: ${LS.marked.size} / 16
+      </p>
+    </div>
+  `;
+}
+
+function lotDraw() {
+  if(LS.over || LS.drawIdx >= LS.drawPile.length) return;
+  const card = LS.drawPile[LS.drawIdx++];
+  LS.drawnIds.push(card.id);
+  sfx.draw();
+
+  // Animate caller
+  const callerEl = document.getElementById('lot-caller');
+  if(callerEl) {
+    callerEl.innerHTML=`<div class="caller-card">
+      <span class="caller-emoji">${card.e}</span>
+      <span class="caller-name">${card.n}</span>
+      <span class="caller-sub">¡Búscala en tu cartón!</span>
+    </div>`;
+  }
+  renderLoteria();
+}
+
+function lotMark(id) {
+  if(LS.over) return;
+
+  if(!LS.drawnIds.includes(id)) {
+    // Card not called yet — shake it
+    const cell = document.getElementById(`lcell-${id}`);
+    if(cell){ cell.classList.add('shake'); setTimeout(()=>cell.classList.remove('shake'),400); }
+    sfx.error();
+    return;
+  }
+
+  if(LS.marked.has(id)) { LS.marked.delete(id); }
+  else {
+    LS.marked.add(id);
+    sfx.mark();
+
+    const win = lotCheckWin();
+    if(win){
+      LS.over = true;
+      renderLoteria();
+      setTimeout(()=>{
+        showWin({
+          emoji:'🏆',
+          title:'¡LOTERÍA!',
+          msg:`¡Ganaste con ${win}! ¡Eres una campeona! 🌟`,
+          onPlay: newLoteria,
+        });
+      }, 350);
+      return;
+    }
+  }
+  renderLoteria();
+}
+
+function lotCheckWin() {
+  const m = LS.marked;
+  const ids = LS.playerCards.map(c=>c.id);
+  // Rows
+  for(let r=0;r<4;r++) if([0,1,2,3].every(c=>m.has(ids[r*4+c]))) return 'una fila completa 🎊';
+  // Cols
+  for(let c=0;c<4;c++) if([0,1,2,3].every(r=>m.has(ids[r*4+c]))) return 'una columna completa 🎊';
+  // Diagonals
+  if([0,5,10,15].every(i=>m.has(ids[i]))) return 'una diagonal ⭐';
+  if([3,6,9,12].every(i=>m.has(ids[i]))) return 'una diagonal ⭐';
+  // Full card
+  if(m.size===16) return '¡el cartón completo! 🌈🎆';
+  return null;
+}
+
+
+/* ══════════════════════════════════════════════════════
+   ████  ACTIVIDAD 2 — COLOREAR POR NÚMEROS  ████
+══════════════════════════════════════════════════════ */
+
+// Zone color definitions
+const CMAP = {
+  1:{ hex:'#87CEEB', name:'Azul cielo',  label:'☁️' },
+  2:{ hex:'#FFD700', name:'Amarillo',    label:'🌟' },
+  3:{ hex:'#E03030', name:'Rojo',        label:'🔴' },
+  4:{ hex:'#8B5E3C', name:'Café',        label:'🍫' },
+  5:{ hex:'#E67E22', name:'Naranja',     label:'🍊' },
+  6:{ hex:'#27AE60', name:'Verde',       label:'🌿' },
+};
+
+// How many unique zone-numbers are paintable
+const COL_TOTAL = 6;
+
+let CS = { selColor: null, filled: {} };
+
+function initColorear() {
+  CS = { selColor: null, filled: {} };
+  buildColorearUI();
+}
+
+function buildColorearUI() {
+  const el = document.getElementById('col-content');
+
+  const chipsHtml = Object.entries(CMAP).map(([n,c])=>`
+    <div class="chip" id="chip-${n}" style="background:${c.hex};"
+         onclick="colSelectChip(${n})" title="${c.name}">
+      <span class="chip-num">${n}</span>${c.name}
+    </div>
+  `).join('');
+
+  el.innerHTML = `
+    <div class="palette-bar">
+      <p class="palette-title">🎨 1) Elige un color · 2) Toca la zona del dibujo</p>
+      ${chipsHtml}
+    </div>
+
+    <div class="svg-wrap">
+      <svg class="col-svg" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg" id="col-svg">
+
+        <!-- ZONE 1: Sky -->
+        <rect id="z-sky" data-zone="1" class="czone"
+              x="0" y="0" width="480" height="225"
+              fill="${CS.filled[1]||'#e8e8e8'}"
+              stroke="#bbb" stroke-width="2"
+              onclick="colPaint(1)"/>
+        <text data-lbl="1" x="22" y="38" font-family="'Fredoka One',sans-serif"
+              font-size="22" fill="${CS.filled[1]?'#fff':'#999'}" pointer-events="none">1</text>
+
+        <!-- ZONE 2: Sun -->
+        <!-- Sun rays (always yellow-ish outline) -->
+        <g pointer-events="none">
+          <line x1="390" y1="20" x2="390" y2="8"  stroke="${CS.filled[2]||'#ddd'}" stroke-width="5" stroke-linecap="round"/>
+          <line x1="390" y1="132" x2="390" y2="144" stroke="${CS.filled[2]||'#ddd'}" stroke-width="5" stroke-linecap="round"/>
+          <line x1="340" y1="76" x2="328" y2="76"  stroke="${CS.filled[2]||'#ddd'}" stroke-width="5" stroke-linecap="round"/>
+          <line x1="440" y1="76" x2="452" y2="76"  stroke="${CS.filled[2]||'#ddd'}" stroke-width="5" stroke-linecap="round"/>
+          <line x1="355" y1="35" x2="347" y2="27"  stroke="${CS.filled[2]||'#ddd'}" stroke-width="5" stroke-linecap="round"/>
+          <line x1="425" y1="117" x2="433" y2="125" stroke="${CS.filled[2]||'#ddd'}" stroke-width="5" stroke-linecap="round"/>
+          <line x1="425" y1="35" x2="433" y2="27"  stroke="${CS.filled[2]||'#ddd'}" stroke-width="5" stroke-linecap="round"/>
+          <line x1="355" y1="117" x2="347" y2="125" stroke="${CS.filled[2]||'#ddd'}" stroke-width="5" stroke-linecap="round"/>
+        </g>
+        <circle id="z-sun" data-zone="2" class="czone"
+                cx="390" cy="76" r="44"
+                fill="${CS.filled[2]||'#e8e8e8'}"
+                stroke="#bbb" stroke-width="2"
+                onclick="colPaint(2)"/>
+        <text data-lbl="2" x="390" y="83" text-anchor="middle" font-family="'Fredoka One',sans-serif"
+              font-size="22" fill="${CS.filled[2]?'#fff':'#999'}" pointer-events="none">2</text>
+
+        <!-- ZONE 4: Chimney (drawn before roof so roof covers base) -->
+        <rect id="z-chimney" data-zone="4" class="czone"
+              x="282" y="106" width="36" height="70"
+              fill="${CS.filled[4]||'#e8e8e8'}"
+              stroke="#999" stroke-width="2"
+              onclick="colPaint(4)"/>
+        <text data-lbl="4" x="300" y="148" text-anchor="middle" font-family="'Fredoka One',sans-serif"
+              font-size="16" fill="${CS.filled[4]?'#fff':'#999'}" pointer-events="none">4</text>
+
+        <!-- ZONE 4: Roof -->
+        <polygon id="z-roof" data-zone="4" class="czone"
+                 points="58,225 240,110 422,225"
+                 fill="${CS.filled[4]||'#e8e8e8'}"
+                 stroke="#999" stroke-width="2"
+                 onclick="colPaint(4)"/>
+        <text data-lbl="4" x="240" y="192" text-anchor="middle" font-family="'Fredoka One',sans-serif"
+              font-size="22" fill="${CS.filled[4]?'#fff':'#999'}" pointer-events="none">4</text>
+
+        <!-- ZONE 3: House Walls -->
+        <rect id="z-walls" data-zone="3" class="czone"
+              x="90" y="223" width="300" height="118"
+              fill="${CS.filled[3]||'#e8e8e8'}"
+              stroke="#999" stroke-width="2"
+              onclick="colPaint(3)"/>
+        <text data-lbl="3" x="240" y="285" text-anchor="middle" font-family="'Fredoka One',sans-serif"
+              font-size="22" fill="${CS.filled[3]?'#fff':'#999'}" pointer-events="none">3</text>
+
+        <!-- Windows (decorative, pre-colored) -->
+        <rect x="108" y="244" width="52" height="38" rx="6" fill="#AED6F1" stroke="#7aafc4" stroke-width="2" pointer-events="none"/>
+        <line x1="134" y1="244" x2="134" y2="282" stroke="#7aafc4" stroke-width="2" pointer-events="none"/>
+        <line x1="108" y1="263" x2="160" y2="263" stroke="#7aafc4" stroke-width="2" pointer-events="none"/>
+        <rect x="320" y="244" width="52" height="38" rx="6" fill="#AED6F1" stroke="#7aafc4" stroke-width="2" pointer-events="none"/>
+        <line x1="346" y1="244" x2="346" y2="282" stroke="#7aafc4" stroke-width="2" pointer-events="none"/>
+        <line x1="320" y1="263" x2="372" y2="263" stroke="#7aafc4" stroke-width="2" pointer-events="none"/>
+
+        <!-- ZONE 5: Door -->
+        <rect id="z-door" data-zone="5" class="czone"
+              x="196" y="260" width="68" height="81"
+              rx="8" ry="0"
+              fill="${CS.filled[5]||'#e8e8e8'}"
+              stroke="#999" stroke-width="2"
+              onclick="colPaint(5)"/>
+        <circle cx="255" cy="302" r="4.5" fill="#aaa" pointer-events="none"/>
+        <text data-lbl="5" x="230" y="306" text-anchor="middle" font-family="'Fredoka One',sans-serif"
+              font-size="20" fill="${CS.filled[5]?'#fff':'#999'}" pointer-events="none">5</text>
+
+        <!-- ZONE 6: Grass -->
+        <rect id="z-grass" data-zone="6" class="czone"
+              x="0" y="339" width="480" height="21"
+              fill="${CS.filled[6]||'#e8e8e8'}"
+              stroke="none"
+              onclick="colPaint(6)"/>
+        <ellipse data-zone="6" class="czone" cx="60"  cy="340" rx="32" ry="13" fill="${CS.filled[6]||'#e8e8e8'}" stroke="none" onclick="colPaint(6)"/>
+        <ellipse data-zone="6" class="czone" cx="162" cy="340" rx="28" ry="11" fill="${CS.filled[6]||'#e8e8e8'}" stroke="none" onclick="colPaint(6)"/>
+        <ellipse data-zone="6" class="czone" cx="320" cy="340" rx="30" ry="12" fill="${CS.filled[6]||'#e8e8e8'}" stroke="none" onclick="colPaint(6)"/>
+        <ellipse data-zone="6" class="czone" cx="430" cy="340" rx="30" ry="12" fill="${CS.filled[6]||'#e8e8e8'}" stroke="none" onclick="colPaint(6)"/>
+        <text data-lbl="6" x="22" y="354" font-family="'Fredoka One',sans-serif"
+              font-size="16" fill="${CS.filled[6]?'#fff':'#999'}" pointer-events="none">6</text>
+
+      </svg>
+    </div>
+
+    <!-- Progress -->
+    <div class="prog-wrap">
+      <div class="prog-bar-bg">
+        <div class="prog-bar" id="col-progbar" style="width:${colProgress()}%;"></div>
+      </div>
+      <p class="prog-label" id="col-proglbl">
+        Zonas pintadas: ${Object.keys(CS.filled).length} / ${COL_TOTAL} 🎨
+      </p>
+    </div>
+
+    <button class="btn-reset" onclick="resetColorear()">🗑️ Borrar todo y empezar</button>
+  `;
+
+  // Highlight selected chip if any
+  if(CS.selColor) {
+    const chip=document.getElementById(`chip-${CS.selColor}`);
+    if(chip) chip.classList.add('sel');
+  }
+}
+
+function colProgress() { return Math.round(Object.keys(CS.filled).length / COL_TOTAL * 100); }
+
+function colSelectChip(num) {
+  CS.selColor = num;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));
+  const chip=document.getElementById(`chip-${num}`);
+  if(chip){ chip.classList.add('sel'); }
+  sfx.chip(num);
+}
+
+function colPaint(zoneNum) {
+  if(!CS.selColor) {
+    // Wiggle palette bar as hint
+    sfx.error();
+    const pb=document.querySelector('.palette-bar');
+    if(pb){ pb.style.animation='wrongShake .4s ease'; setTimeout(()=>pb.style.animation='',400); }
+    return;
+  }
+
+  const color = CMAP[CS.selColor].hex;
+  CS.filled[zoneNum] = color;
+
+  // Update all SVG elements with this zone
+  document.querySelectorAll(`[data-zone="${zoneNum}"]`).forEach(el => {
+    el.setAttribute('fill', color);
+  });
+  // Update zone number labels to white
+  document.querySelectorAll(`[data-lbl="${zoneNum}"]`).forEach(el => {
+    el.setAttribute('fill', '#fff');
+  });
+  // Update sun rays if painting zone 2
+  if(zoneNum===2) {
+    document.querySelectorAll('#col-svg line').forEach(l=>l.setAttribute('stroke', color));
+  }
+
+  sfx.paint(CS.selColor);
+
+  // Update progress bar
+  const cnt = Object.keys(CS.filled).length;
+  const pct = Math.round(cnt / COL_TOTAL * 100);
+  const bar = document.getElementById('col-progbar');
+  const lbl = document.getElementById('col-proglbl');
+  if(bar) bar.style.width = pct+'%';
+  if(lbl) lbl.textContent = `Zonas pintadas: ${cnt} / ${COL_TOTAL} 🎨`;
+
+  // Check win
+  if(cnt >= COL_TOTAL) {
+    setTimeout(()=>{
+      showWin({
+        emoji:'🎨',
+        title:'¡Cuadro Terminado!',
+        msg:'¡Pintaste toda la casita! ¡Eres una artista increíble! 🌟🏡',
+        onPlay: resetColorear,
+      });
+    }, 300);
+  }
+}
+
+function resetColorear() {
+  colInited = false;
+  initColorear();
+  colInited = true;
+}
+
+
+/* ══════════════════════════════════════════════════════
+   ████  ACTIVIDAD 3 — VISTE AL PERSONAJE  ████
+══════════════════════════════════════════════════════ */
+
+const STEPS = [
+  {
+    slot: 'hat',
+    instr: '¡Ponle el <strong style="color:#FFD700;">SOMBRERO AMARILLO</strong> a la muñeca! 🎩',
+    opts: [
+      { label:'Sombrero Amarillo', color:'#FFD700', bg:'#FFFBE8', emoji:'🎩', ok:true  },
+      { label:'Sombrero Rojo',     color:'#E03030', bg:'#FDEAEA', emoji:'🎩', ok:false },
+      { label:'Sombrero Azul',     color:'#2980B9', bg:'#EBF5FB', emoji:'🎩', ok:false },
+    ],
+  },
+  {
+    slot: 'dress',
+    instr: '¡Ponle el <strong style="color:#FF6BB5;">VESTIDO ROSA</strong>! 👗',
+    opts: [
+      { label:'Vestido Rosa',   color:'#FF6BB5', bg:'#FFF0F8', emoji:'👗', ok:true  },
+      { label:'Vestido Verde',  color:'#27AE60', bg:'#EAFAF1', emoji:'👗', ok:false },
+      { label:'Vestido Morado', color:'#8E44AD', bg:'#F5EEF8', emoji:'👗', ok:false },
+    ],
+  },
+  {
+    slot: 'shoes',
+    instr: '¡Ponle los <strong style="color:#E03030;">ZAPATOS ROJOS</strong>! 👟',
+    opts: [
+      { label:'Zapatos Rojos',   color:'#E03030', bg:'#FDEAEA', emoji:'👟', ok:true  },
+      { label:'Zapatos Naranja', color:'#E67E22', bg:'#FEF0E8', emoji:'👟', ok:false },
+      { label:'Zapatos Morados', color:'#8E44AD', bg:'#F5EEF8', emoji:'👟', ok:false },
+    ],
+  },
+  {
+    slot: 'scarf',
+    instr: '¡Ponle la <strong style="color:#2980B9;">BUFANDA AZUL</strong>! 🧣',
+    opts: [
+      { label:'Bufanda Azul',     color:'#2980B9', bg:'#EBF5FB', emoji:'🧣', ok:true  },
+      { label:'Bufanda Amarilla', color:'#F1C40F', bg:'#FEFDE8', emoji:'🧣', ok:false },
+      { label:'Bufanda Verde',    color:'#27AE60', bg:'#EAFAF1', emoji:'🧣', ok:false },
+    ],
+  },
+  {
+    slot: 'bag',
+    instr: '¡Ponle el <strong style="color:#E67E22;">BOLSO NARANJA</strong>! 👜',
+    opts: [
+      { label:'Bolso Naranja', color:'#E67E22', bg:'#FEF0E8', emoji:'👜', ok:true  },
+      { label:'Bolso Rosa',    color:'#FF6BB5', bg:'#FFF0F8', emoji:'👜', ok:false },
+      { label:'Bolso Morado',  color:'#8E44AD', bg:'#F5EEF8', emoji:'👜', ok:false },
+    ],
+  },
+];
+
+let VS = { step: 0, eq: {} };
+
+function initVestir() {
+  VS = { step: 0, eq: {} };
+  renderVestir();
+}
+
+function renderVestir() {
+  const el = document.getElementById('vest-content');
+  const done = VS.step >= STEPS.length;
+  const step = done ? null : STEPS[VS.step];
+
+  // Shuffle options for current step
+  const opts = step ? shuffle(step.opts) : [];
+
+  // Dots
+  const dotsHtml = STEPS.map((_,i)=>`
+    <div class="sdot ${i<VS.step?'done':i===VS.step?'current':''}"></div>
+  `).join('');
+
+  // Character SVG with equipped items
+  const eq = VS.eq;
+  const charSvg = `
+    <svg viewBox="0 0 170 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:170px;height:auto;">
+      <!-- Dress / body -->
+      ${eq.dress
+        ? `<ellipse cx="85" cy="205" rx="55" ry="68" fill="${eq.dress.color}" opacity=".92"/>
+           <ellipse cx="85" cy="238" rx="58" ry="38" fill="${eq.dress.color}" opacity=".85"/>
+           <text x="85" y="228" font-size="42" text-anchor="middle" dominant-baseline="middle">${eq.dress.emoji}</text>`
+        : `<ellipse cx="85" cy="205" rx="55" ry="68" fill="#e0e0e0"/>
+           <ellipse cx="85" cy="238" rx="58" ry="38" fill="#d4d4d4"/>
+           <text x="85" y="220" font-size="13" text-anchor="middle" fill="#bbb" font-family="'Nunito',sans-serif" font-weight="700">Vestido aquí</text>`
+      }
+      <!-- Arms -->
+      <ellipse cx="30"  cy="185" rx="15" ry="9" fill="#FFE8B6" transform="rotate(-22 30 185)"/>
+      <ellipse cx="140" cy="185" rx="15" ry="9" fill="#FFE8B6" transform="rotate(22 140 185)"/>
+      <!-- Scarf -->
+      ${eq.scarf
+        ? `<rect x="52" y="152" width="66" height="22" rx="11" fill="${eq.scarf.color}" opacity=".92"/>
+           <text x="85" y="167" font-size="20" text-anchor="middle" dominant-baseline="middle">${eq.scarf.emoji}</text>`
+        : `<rect x="52" y="152" width="66" height="22" rx="11" fill="#eee"/>
+           <text x="85" y="166" font-size="11" text-anchor="middle" fill="#bbb" font-family="'Nunito',sans-serif" font-weight="700">Bufanda</text>`
+      }
+      <!-- Neck -->
+      <rect x="71" y="144" width="28" height="18" rx="5" fill="#FFE8B6"/>
+      <!-- Head -->
+      <circle cx="85" cy="102" r="56" fill="#FFE8B6"/>
+      <!-- Hair -->
+      <ellipse cx="85"  cy="58"  rx="54" ry="24" fill="#A0522D"/>
+      <ellipse cx="40"  cy="88"  rx="17" ry="40" fill="#A0522D"/>
+      <ellipse cx="130" cy="88"  rx="17" ry="40" fill="#A0522D"/>
+      <!-- Bow -->
+      ${!eq.hat
+        ? `<g transform="translate(28,43)">
+             <polygon points="0,0 14,-7 14,7" fill="#FF6BB5"/>
+             <polygon points="28,0 14,-7 14,7" fill="#FF6BB5"/>
+             <circle cx="14" cy="0" r="5" fill="#E94FA0"/>
+           </g>`
+        : ''
+      }
+      <!-- Eyes -->
+      <ellipse cx="68"  cy="106" rx="9" ry="10" fill="#fff"/>
+      <ellipse cx="102" cy="106" rx="9" ry="10" fill="#fff"/>
+      <circle  cx="70"  cy="107" r="5.5" fill="#3a2c6e"/>
+      <circle  cx="104" cy="107" r="5.5" fill="#3a2c6e"/>
+      <circle  cx="72"  cy="105" r="2"   fill="#fff"/>
+      <circle  cx="106" cy="105" r="2"   fill="#fff"/>
+      <line x1="60" y1="97" x2="56" y2="92" stroke="#3a2c6e" stroke-width="2" stroke-linecap="round"/>
+      <line x1="68" y1="95" x2="67" y2="90" stroke="#3a2c6e" stroke-width="2" stroke-linecap="round"/>
+      <line x1="110" y1="97" x2="114" y2="92" stroke="#3a2c6e" stroke-width="2" stroke-linecap="round"/>
+      <line x1="102" y1="95" x2="103" y2="90" stroke="#3a2c6e" stroke-width="2" stroke-linecap="round"/>
+      <!-- Blush -->
+      <ellipse cx="54"  cy="118" rx="10" ry="6" fill="#FF9EC4" opacity=".55"/>
+      <ellipse cx="116" cy="118" rx="10" ry="6" fill="#FF9EC4" opacity=".55"/>
+      <!-- Smile -->
+      <path d="M70 127 Q85 143 100 127" stroke="#3a2c6e" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- Hat -->
+      ${eq.hat
+        ? `<text x="85" y="44" font-size="46" text-anchor="middle" dominant-baseline="middle">${eq.hat.emoji}</text>`
+        : `<text x="85" y="48" font-size="13" text-anchor="middle" fill="#ccc" font-family="'Nunito',sans-serif" font-weight="700">Sombrero</text>`
+      }
+      <!-- Shoes -->
+      <ellipse cx="60"  cy="272" rx="22" ry="9" fill="${eq.shoes?eq.shoes.color:'#d0d0d0'}"/>
+      <ellipse cx="110" cy="272" rx="22" ry="9" fill="${eq.shoes?eq.shoes.color:'#d0d0d0'}"/>
+      ${eq.shoes
+        ? `<text x="85" y="277" font-size="18" text-anchor="middle" dominant-baseline="middle">${eq.shoes.emoji}</text>`
+        : `<text x="85" y="275" font-size="11" text-anchor="middle" fill="#bbb" font-family="'Nunito',sans-serif" font-weight="700">Zapatos</text>`
+      }
+      <!-- Bag -->
+      ${eq.bag
+        ? `<text x="22" y="218" font-size="30" dominant-baseline="middle">${eq.bag.emoji}</text>`
+        : `<text x="18" y="218" font-size="11" fill="#ccc" font-family="'Nunito',sans-serif" font-weight="700">Bolso</text>`
+      }
+    </svg>
+  `;
+
+  // Options panel or completion message
+  const panelHtml = done
+    ? `<div style="text-align:center;padding:20px;">
+         <div style="font-size:4rem;animation:mascotBounce 1.5s ease-in-out infinite;display:inline-block;">🌟</div>
+         <p style="font-family:'Fredoka One',cursive;font-size:1.55rem;color:var(--purple);margin:14px 0 6px;">¡Vestida a la perfección!</p>
+         <p style="font-weight:700;color:#888;margin-bottom:18px;">¡Seguiste todas las instrucciones! 👏</p>
+         <button onclick="restartVestir()"
+           style="padding:13px 28px;background:linear-gradient(135deg,var(--pink-d),var(--purple));color:#fff;
+                  font-family:'Fredoka One',cursive;font-size:1.1rem;border:none;border-radius:50px;
+                  cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.14);">
+           🔄 Jugar otra vez
+         </button>
+       </div>`
+    : `<div class="opts-panel">
+         <p class="opts-title">👇 ¡Elige el correcto!</p>
+         ${opts.map((opt,i)=>`
+           <div class="cloth-opt" id="vopt-${i}"
+                onclick="vestChoose(${i}, ${opt.ok}, '${step.slot}')"
+                style="border-left:6px solid ${opt.color};">
+             <span class="opt-ico" style="background:${opt.bg};">${opt.emoji}</span>
+             <span style="color:${opt.color};">${opt.label}</span>
+           </div>
+         `).join('')}
+       </div>`;
+
+  el.innerHTML = `
+    <div class="step-dots">${dotsHtml}</div>
+
+    <div class="instr-box">
+      ${done
+        ? `<p class="instr-text">¡Muñeca lista! 🎊 ¡Muy bien hecho!</p>`
+        : `<p class="instr-step">Paso ${VS.step + 1} de ${STEPS.length}</p>
+           <p class="instr-text">${step.instr}</p>`
+      }
+    </div>
+
+    <div class="vest-game">
+      <div class="char-display">
+        <p class="char-label">✨ Tu muñeca ✨</p>
+        ${charSvg}
+      </div>
+      ${panelHtml}
+    </div>
+  `;
+
+  // Show win overlay when all done
+  if(done) {
+    setTimeout(()=>{
+      showWin({
+        emoji:'👗',
+        title:'¡Muñeca Perfecta!',
+        msg:'¡Seguiste todas las instrucciones! ¡Eres muy lista y creativa! 🌟💖',
+        onPlay: restartVestir,
+      });
+    }, 400);
+  }
+}
+
+function vestChoose(optIdx, isOk, slot) {
+  const el = document.getElementById(`vopt-${optIdx}`);
+  if(isOk) {
+    if(el){ el.style.animation='correctFlash .5s ease'; }
+    sfx.correct();
+
+    const step = STEPS[VS.step];
+    // Find the correct option data
+    const correctOpt = step.opts.find(o=>o.ok);
+    VS.eq[slot] = { emoji: correctOpt.emoji, color: correctOpt.color };
+
+    setTimeout(()=>{
+      VS.step++;
+      renderVestir();
+    }, 500);
+  } else {
+    if(el){ el.style.animation='wrongShake .4s ease'; }
+    sfx.error();
+    setTimeout(()=>{ if(el) el.style.animation=''; }, 450);
+  }
+}
+
+function restartVestir() {
+  vestInited = false;
+  initVestir();
+  vestInited = true;
+}
+
+
+/* ══════════════════════════════════════════════════════
+   KEYBOARD ACCESSIBILITY
+══════════════════════════════════════════════════════ */
+document.querySelectorAll('.activity-card').forEach(card=>{
+  card.addEventListener('keydown', e=>{
+    if(e.key===' '){ e.preventDefault(); card.click(); }
+  });
+});
+</script>
+
+</body>
+</html>
