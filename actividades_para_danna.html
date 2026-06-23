@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actividades para Danna - AntiGravity Kids Studio</title>
-    <!-- Google Fonts -->
+    <title>Actividades - AntiGravity Kids Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
@@ -13,12 +12,9 @@
         :root {
             --bg-deep: #080c14;
             --bg-card: rgba(22, 30, 52, 0.75);
-            --border-glow: rgba(236, 72, 153, 0.45); /* Rosado Neón para Danna */
-            --border-glow-hover: rgba(6, 182, 212, 0.6);
-            --primary: #ec4899;       /* Rosado Neón */
-            --secondary: #06b6d4;     /* Cian Neón */
-            --success: #10b981;       /* Verde Acierto */
-            --error: #f43f5e;         /* Coral/Rosa Error */
+            --border-glow: rgba(236, 72, 153, 0.45);
+            --primary: #ec4899;       /* Rosado Ne Neon */
+            --secondary: #06b6d4;     /* Cian Ne Neon */
             --warning: #fbbf24;       /* Dorado Estelar */
             --text-main: #f3f4f6;     /* Blanco */
             --text-muted: #9ca3af;
@@ -30,7 +26,6 @@
             margin: 0;
             padding: 0;
             user-select: none;
-            -webkit-user-drag: none;
         }
 
         body {
@@ -44,7 +39,7 @@
             position: relative;
         }
 
-        /* FONDO ESPACIAL ANIMADO */
+        /* FONDO ESPACIAL */
         .space-bg {
             position: fixed;
             top: 0;
@@ -53,29 +48,6 @@
             height: 100%;
             z-index: -2;
             background: radial-gradient(ellipse at bottom, #2b103c 0%, #06080e 100%);
-        }
-
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: transparent;
-            background-image: 
-                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
-            background-size: 550px 550px, 350px 350px, 250px 250px;
-            background-position: 0 0, 40px 60px, 130px 270px;
-            opacity: 0.5;
-            animation: starsTwinkle 120s linear infinite;
-        }
-
-        @keyframes starsTwinkle {
-            from { background-position: 0 0, 40px 60px, 130px 270px; }
-            to { background-position: 550px 1100px, 390px 760px, 630px 1270px; }
         }
 
         /* HEADER */
@@ -104,18 +76,6 @@
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 15px rgba(236, 72, 153, 0.3);
-        }
-
-        .logo-icon {
-            font-size: 2rem;
-            animation: floatSlow 3s ease-in-out infinite;
-        }
-
-        .dashboard-controls {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
         }
 
         .score-badge {
@@ -128,58 +88,7 @@
             gap: 0.5rem;
             font-weight: 800;
             color: var(--warning);
-            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
             font-size: 1.2rem;
-            animation: pulseGlow 2s infinite alternate;
-        }
-
-        .audio-toggle {
-            background: var(--bg-card);
-            border: 2px solid var(--primary);
-            color: var(--text-main);
-            padding: 0.4rem;
-            border-radius: 50%;
-            cursor: pointer;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            transition: all 0.3s ease;
-        }
-
-        .audio-toggle:hover {
-            background: var(--primary);
-            box-shadow: 0 0 12px var(--primary);
-        }
-
-        /* SELECTOR DE GRAVEDAD */
-        .gravity-selector {
-            display: flex;
-            background: rgba(17, 24, 39, 0.8);
-            border: 2px solid var(--primary);
-            border-radius: 9999px;
-            padding: 0.25rem;
-            gap: 0.25rem;
-        }
-
-        .gravity-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            padding: 0.4rem 1rem;
-            border-radius: 9999px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 800;
-            transition: all 0.3s ease;
-        }
-
-        .gravity-btn.active {
-            background: var(--primary);
-            color: #fff;
-            box-shadow: 0 0 10px var(--primary);
         }
 
         /* MAIN DASHBOARD */
@@ -200,18 +109,19 @@
             width: 100%;
         }
 
+        .menu-container.hidden {
+            display: none !important;
+        }
+
         .welcome-title {
-            font-size: 3.2rem;
+            font-size: 3rem;
             font-weight: 800;
             margin-bottom: 0.5rem;
-            background: linear-gradient(to right, #fff, #ffd1e8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 25px rgba(236, 72, 153, 0.2);
+            color: #fff;
         }
 
         .welcome-subtitle {
-            font-size: 1.35rem;
+            font-size: 1.2rem;
             color: var(--text-muted);
             margin-bottom: 3rem;
         }
@@ -229,102 +139,58 @@
             border-radius: 2rem;
             padding: 2.5rem 1.5rem;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-            overflow: hidden;
+            transition: transform 0.2s;
             display: flex;
             flex-direction: column;
             align-items: center;
             backdrop-filter: blur(12px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top right, rgba(236, 72, 153, 0.2), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
         }
 
         .game-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             border-color: var(--secondary);
-            box-shadow: 0 15px 35px rgba(6, 182, 212, 0.25);
-        }
-
-        .game-card:hover::before {
-            opacity: 1;
         }
 
         .game-card .card-icon {
-            font-size: 4.5rem;
-            margin-bottom: 1.2rem;
-            filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.5));
-            animation: floatSlow 4s ease-in-out infinite;
-        }
-
-        .game-card:nth-child(2) .card-icon {
-            animation-delay: 1s;
-        }
-
-        .game-card:nth-child(3) .card-icon {
-            animation-delay: 2s;
-        }
-
-        .game-card:nth-child(4) .card-icon {
-            animation-delay: 3s;
+            font-size: 4rem;
+            margin-bottom: 1rem;
         }
 
         .game-card h3 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
             color: #fff;
-            text-align: center;
         }
 
         .game-card p {
             color: var(--text-muted);
             font-size: 0.95rem;
-            line-height: 1.5;
             text-align: center;
         }
 
-        /* PANELES DE JUEGO */
-        .game-panel {
+        /* VISTAS DE JUEGOS */
+        .game-view {
             display: none;
             width: 100%;
             background: var(--bg-card);
             border: 3px solid var(--border-glow);
             border-radius: 2rem;
-            padding: 2.5rem;
-            position: relative;
+            padding: 2rem;
             backdrop-filter: blur(15px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
 
-        .game-panel.active {
-            display: flex;
-            flex-direction: column;
+        .game-view.active {
+            display: block !important;
         }
 
-        .panel-header {
+        .view-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 1.2rem;
-        }
-
-        .panel-header h2 {
-            font-size: 2rem;
-            font-weight: 800;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
         }
 
         .btn-back {
@@ -335,2410 +201,308 @@
             border-radius: 9999px;
             cursor: pointer;
             font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            font-size: 1rem;
         }
 
         .btn-back:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: var(--primary);
-            box-shadow: 0 0 12px rgba(236, 72, 153, 0.4);
-        }
-
-        .instructions-bubble {
-            background: rgba(236, 72, 153, 0.08);
-            border: 2px solid rgba(236, 72, 153, 0.25);
-            border-radius: 1.2rem;
-            padding: 1rem 1.5rem;
-            font-size: 1.1rem;
-            color: #ffd1e8;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            animation: slideInUp 0.5s ease;
-            font-weight: 600;
-        }
-
-        .instructions-icon {
-            font-size: 1.8rem;
-        }
-
-        /* MINIJUEGO 1: SILUETAS ESPACIALES */
-        .g1-sandbox {
-            background: rgba(4, 6, 12, 0.8);
-            border: 3px dashed rgba(236, 72, 153, 0.25);
-            border-radius: 2rem;
-            height: 340px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 2.5rem;
-        }
-
-        .g1-item {
-            position: absolute;
-            font-size: 4.5rem;
-            cursor: grab;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100px;
-            height: 100px;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
-            z-index: 10;
-            touch-action: none;
-            transition: transform 0.15s ease;
-        }
-
-        .g1-item:active {
-            cursor: grabbing;
-            transform: scale(1.25);
-            z-index: 100;
-        }
-
-        .g1-slots-container {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            background: rgba(17, 24, 39, 0.6);
-            padding: 2rem;
-            border-radius: 2rem;
-            border: 2px solid rgba(255,255,255,0.05);
-        }
-
-        .g1-slot {
-            width: 120px;
-            height: 120px;
-            border: 3px dashed rgba(255, 255, 255, 0.2);
-            border-radius: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: rgba(255, 255, 255, 0.01);
-            transition: all 0.3s ease;
-        }
-
-        .g1-slot-silhouette {
-            font-size: 4.2rem;
-            opacity: 0.12;
-            filter: brightness(0) invert(1) blur(0.5px);
-            pointer-events: none;
-        }
-
-        .g1-slot.highlight {
-            border-color: var(--secondary);
-            background: rgba(6, 182, 212, 0.08);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
-        }
-
-        .g1-slot.filled {
-            border-color: var(--success);
-            border-style: solid;
-            background: rgba(16, 185, 129, 0.12);
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
-        }
-
-        .g1-slot.filled .g1-item {
-            position: relative !important;
-            left: 0 !important;
-            top: 0 !important;
-            transform: scale(1.05) !important;
-            cursor: default;
-        }
-
-        /* MINIJUEGO 2: SUMAS VISUALES */
-        .g2-board {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 520px;
-            position: relative;
-            overflow: hidden;
-            background: rgba(4, 6, 12, 0.8);
-            border: 3px dashed rgba(6, 182, 212, 0.25);
-            border-radius: 2rem;
-        }
-
-        .g2-equation-display {
-            background: rgba(17, 24, 39, 0.95);
-            border: 3px solid var(--secondary);
-            border-top: none;
-            padding: 1.2rem 3rem;
-            border-radius: 0 0 2rem 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            z-index: 5;
-            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
-        }
-
-        .g2-numbers-text {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #fff;
-            letter-spacing: 0.1em;
-            text-shadow: 0 0 15px rgba(6, 182, 212, 0.8);
-        }
-
-        .g2-stars-display {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 2.2rem;
-        }
-
-        .g2-stars-display span.plus-sign {
-            color: var(--primary);
-            font-weight: 800;
-            margin: 0 0.5rem;
-        }
-
-        .g2-asteroids-area {
-            flex: 1;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .g2-asteroid {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #2a2e3d 0%, #171923 70%, #0e1017 100%);
-            border: 3px solid var(--border-glow);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.6), inset -5px -5px 15px rgba(0,0,0,0.8);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            gap: 0.1rem;
-        }
-
-        .g2-asteroid:hover {
-            border-color: var(--secondary);
-            transform: scale(1.05);
-            box-shadow: 0 12px 30px rgba(6, 182, 212, 0.5);
-        }
-
-        .g2-ast-num {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255,255,255,0.4);
-            line-height: 1.1;
-        }
-
-        .g2-ast-stars {
-            font-size: 1.1rem;
-            letter-spacing: -0.1em;
-            color: var(--warning);
-        }
-
-        /* MINIJUEGO 3: BUSCADOR DE SÍLABAS */
-        .g3-board {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 520px;
-            position: relative;
-            overflow: hidden;
-            background: rgba(4, 6, 12, 0.8);
-            border: 3px dashed rgba(236, 72, 153, 0.25);
-            border-radius: 2rem;
-        }
-
-        .g3-hologram-card {
-            background: rgba(22, 30, 52, 0.9);
-            border: 3px solid var(--primary);
-            border-radius: 2rem;
-            padding: 1.2rem 3rem;
-            margin-top: 1.8rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.8rem;
-            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.35);
-            z-index: 5;
-            min-width: 280px;
-        }
-
-        .g3-emoji-display {
-            font-size: 5rem;
-            animation: bounceSlow 2.5s ease-in-out infinite;
-        }
-
-        .g3-word-label {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--primary);
-            background: rgba(236, 72, 153, 0.1);
-            padding: 0.4rem 1.5rem;
-            border-radius: 9999px;
-            letter-spacing: 0.05em;
-            text-shadow: 0 0 10px rgba(236, 72, 153, 0.4);
-            border: 1px solid rgba(236, 72, 153, 0.3);
-        }
-
-        .g3-bubble {
-            position: absolute;
-            background: radial-gradient(circle at 30% 30%, rgba(254, 219, 238, 0.9) 0%, rgba(236, 72, 153, 0.9) 70%, rgba(190, 24, 74, 0.95) 100%);
-            border: 3px solid #fff;
-            color: white;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4), 0 0 15px rgba(236, 72, 153, 0.4);
-            transition: transform 0.1s ease;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-        }
-
-        .g3-bubble:hover {
-            transform: scale(1.08);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.5), 0 0 25px rgba(255,255,255,0.9);
-        }
-
-        /* MINIJUEGO 4: CAJA DE ARENA ANTIGRAVEDAD (SANDBOX CREATIVO) */
-        .g4-container {
-            display: flex;
-            flex-direction: column;
-            height: 600px;
-            width: 100%;
-            gap: 1rem;
-            position: relative;
-        }
-
-        .g4-sandbox-canvas-wrapper {
-            flex: 1;
-            position: relative;
-            background: rgba(4, 6, 12, 0.85);
-            border: 3px solid rgba(236, 72, 153, 0.3);
-            border-radius: 2rem;
-            overflow: hidden;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
-        }
-
-        /* Canvas interactivo de dibujo */
-        #g4-draw-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            cursor: crosshair;
-        }
-
-        .g4-element {
-            position: absolute;
-            z-index: 3;
-            cursor: grab;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.15s ease;
-            touch-action: none;
-        }
-
-        .g4-element:active {
-            cursor: grabbing;
-            transform: scale(1.2);
-            z-index: 100;
-        }
-
-        .g4-sticker {
-            font-size: 4rem;
-            width: 80px;
-            height: 80px;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
-        }
-
-        .g4-sound-creature {
-            font-size: 4.5rem;
-            width: 90px;
-            height: 90px;
-            animation: pulseCreature 2s ease-in-out infinite alternate;
-            filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.6));
-            border-radius: 50%;
-            background: rgba(236, 72, 153, 0.15);
-            border: 2px dashed var(--primary);
-        }
-
-        @keyframes pulseCreature {
-            0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.4)); }
-            100% { transform: scale(1.1); filter: drop-shadow(0 0 25px rgba(236, 72, 153, 0.8)); }
-        }
-
-        .g4-block-text {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: 3px solid #fff;
-            color: white;
-            padding: 0.6rem 1.4rem;
-            border-radius: 1.2rem;
-            font-size: 1.6rem;
-            font-weight: 800;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.4), 0 0 15px rgba(6, 182, 212, 0.4);
-            white-space: nowrap;
-        }
-
-        .g4-constellation-dot {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1;
-            box-shadow: 0 0 10px currentColor;
-        }
-
-        /* Barra de Herramientas del Sandbox */
-        .g4-toolbar {
-            background: rgba(17, 24, 39, 0.95);
-            border: 2px solid var(--primary);
-            border-radius: 1.5rem;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-            z-index: 10;
-        }
-
-        .g4-tool-section {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .g4-tool-label {
-            font-size: 0.85rem;
-            font-weight: 800;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-right: 0.2rem;
-        }
-
-        .g4-btn-tool {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            color: var(--text-main);
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            cursor: pointer;
-            font-weight: 800;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .g4-btn-tool.active, .g4-btn-tool:hover {
             background: var(--primary);
             border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(236, 72, 153, 0.4);
-            color: #fff;
         }
 
-        .g4-btn-tool.special {
-            background: linear-gradient(135deg, var(--warning), #f97316);
-            border: none;
-            color: #0b0f19;
-            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
-        }
-
-        .g4-btn-tool.special:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 18px rgba(251, 191, 36, 0.6);
-        }
-
-        /* Estilos del teclado flotante en la barra */
-        .g4-keyboard-panel {
-            background: rgba(17, 24, 39, 0.95);
-            border: 2px solid var(--secondary);
-            border-radius: 1.5rem;
-            padding: 1rem;
-            position: absolute;
-            bottom: 85px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: none;
-            flex-direction: column;
-            gap: 0.8rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            z-index: 20;
-            width: 320px;
-            animation: slideInUp 0.3s ease;
-        }
-
-        .g4-keyboard-panel.active {
+        /* JUEGO 1: SILUETAS */
+        .items-container {
             display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
-
-        .g4-keyboard-input-wrapper {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .g4-keyboard-input {
-            flex: 1;
-            background: rgba(8, 12, 20, 0.8);
-            border: 2px solid var(--secondary);
-            border-radius: 0.8rem;
+        .drag-item {
+            font-size: 4rem;
+            cursor: pointer;
             padding: 0.5rem;
-            color: #fff;
-            font-size: 1.4rem;
-            font-weight: 800;
-            text-align: center;
-            letter-spacing: 0.1em;
-            outline: none;
+            border-radius: 1rem;
+            border: 3px solid transparent;
         }
-
-        .g4-keyboard-row {
-            display: flex;
-            justify-content: center;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-        }
-
-        .g4-key {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 0.4rem 0.8rem;
-            border-radius: 0.6rem;
-            font-size: 1.1rem;
-            font-weight: 800;
-            cursor: pointer;
-            min-width: 38px;
-            text-align: center;
-            transition: all 0.2s ease;
-        }
-
-        .g4-key:hover {
-            background: var(--secondary);
+        .drag-item.selected {
             border-color: var(--secondary);
-            transform: scale(1.1);
+            background: rgba(6, 182, 212, 0.2);
         }
-
-        .g4-key.del {
-            background: var(--error);
-            border-color: var(--error);
+        .slots-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
         }
-
-        .g4-key.action {
-            background: var(--success);
-            border-color: var(--success);
-            flex: 1;
-            font-size: 1rem;
-        }
-
-        /* Panel del cajón de stickers */
-        .g4-stickers-panel {
-            background: rgba(17, 24, 39, 0.95);
-            border: 2px solid var(--primary);
+        .slot-target {
+            width: 120px;
+            height: 120px;
+            border: 3px dashed var(--text-muted);
             border-radius: 1.5rem;
-            padding: 1rem;
-            position: absolute;
-            bottom: 85px;
-            left: 20px;
-            display: none;
-            gap: 0.6rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            z-index: 20;
-            max-width: 320px;
-            flex-wrap: wrap;
-            animation: slideInUp 0.3s ease;
-        }
-
-        .g4-stickers-panel.active {
             display: flex;
-        }
-
-        .g4-sticker-option {
-            font-size: 2.5rem;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            background: rgba(255,255,255,0.02);
             cursor: pointer;
-            transition: transform 0.2s ease;
-            padding: 0.2rem;
+        }
+        .slot-target.silhouette {
+            filter: brightness(0) opacity(0.25);
         }
 
-        .g4-sticker-option:hover {
-            transform: scale(1.25);
-        }
-
-        /* Asistente Robot */
-        .g4-robot-helper {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+        /* JUEGO 2: SUMAS */
+        .stars-display {
             font-size: 3.5rem;
-            cursor: pointer;
-            z-index: 10;
-            filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.4));
-            animation: floatSlow 4s ease-in-out infinite;
-        }
-
-        .g4-robot-bubble {
-            position: absolute;
-            background: rgba(22, 30, 52, 0.95);
-            border: 2px solid var(--secondary);
-            border-radius: 1.2rem;
-            padding: 0.8rem 1.2rem;
-            color: #fff;
-            font-size: 0.95rem;
-            font-weight: 800;
-            width: 220px;
-            right: 85px;
-            top: 25px;
-            display: none;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            z-index: 100;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .g4-robot-bubble::after {
-            content: '';
-            position: absolute;
-            right: -10px;
-            top: 15px;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-left: 10px solid var(--secondary);
-        }
-
-        /* Polaroid Photo Effect Overlay */
-        .g4-photo-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(8, 12, 20, 0.95);
-            z-index: 110;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-            animation: fadeIn 0.3s ease;
-        }
-
-        .g4-photo-overlay.active {
-            display: flex;
-        }
-
-        .g4-polaroid-frame {
-            background: #fff;
-            padding: 1.5rem;
-            padding-bottom: 3rem;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            border-radius: 0.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.2rem;
-            transform: rotate(-3deg);
-            max-width: 90%;
-            width: 380px;
-        }
-
-        .g4-polaroid-screen-shot {
-            background: #111827;
-            border: 3px solid #374151;
-            width: 100%;
-            height: 250px;
-            border-radius: 0.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .g4-polaroid-caption {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 800;
-            font-size: 1.5rem;
-            color: #111827;
             text-align: center;
+            margin-bottom: 2rem;
         }
-
-        .g4-white-flash {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #fff;
-            z-index: 100;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .g4-white-flash.active {
-            animation: cameraFlash 0.6s ease;
-        }
-
-        @keyframes cameraFlash {
-            0% { opacity: 0; }
-            10% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        /* MODAL DE CELEBRACIÓN COMPLETA */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(8, 12, 20, 0.92);
-            z-index: 100;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(15px);
-        }
-
-        .modal.active {
+        .asteroids-container {
             display: flex;
-            animation: fadeIn 0.4s ease;
+            justify-content: center;
+            gap: 1.5rem;
         }
-
-        .modal-content {
-            background: var(--bg-card);
-            border: 3px solid var(--primary);
-            border-radius: 2.5rem;
-            padding: 4rem 3rem;
-            text-align: center;
-            max-width: 520px;
-            width: 90%;
-            box-shadow: 0 20px 60px rgba(236, 72, 153, 0.4);
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-        }
-
-        .modal.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-icon {
-            font-size: 6rem;
-            margin-bottom: 1.5rem;
-            animation: bounceSlow 1.5s ease-in-out infinite;
-        }
-
-        .modal h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(236,72,153,0.5);
-        }
-
-        .modal p {
-            color: var(--text-muted);
-            font-size: 1.25rem;
-            margin-bottom: 2.5rem;
-            line-height: 1.6;
-        }
-
-        .btn-modal {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            color: #fff;
-            padding: 1rem 3rem;
-            border-radius: 9999px;
-            font-size: 1.35rem;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 6px 25px rgba(236, 72, 153, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        .btn-modal:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 30px rgba(6, 182, 212, 0.6);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* BANNER ALERTA SUPERGRAVEDAD */
-        .supergravity-alert {
-            position: fixed;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.5);
-            background: linear-gradient(135deg, var(--error), var(--warning));
+        .asteroid-btn {
+            background: #1f2937;
+            border: 3px solid var(--secondary);
             color: white;
-            padding: 1.5rem 3rem;
-            border-radius: 2rem;
             font-size: 2.5rem;
             font-weight: 800;
-            z-index: 150;
-            box-shadow: 0 0 50px rgba(244, 63, 94, 0.6);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* JUEGO 3: SÍLABAS */
+        .word-target-container {
             text-align: center;
+            margin-bottom: 1.5rem;
         }
-
-        .supergravity-alert.active {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            border-top: 2px solid rgba(255, 255, 255, 0.05);
-            background: rgba(8, 12, 20, 0.5);
-            margin-top: auto;
-        }
-
-        footer strong {
+        .word-hint-emoji { font-size: 5rem; }
+        .word-build-space {
+            font-size: 2.2rem;
+            font-weight: 800;
             color: var(--primary);
+            margin-top: 0.5rem;
+        }
+        .bubbles-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .syllable-bubble {
+            background: radial-gradient(circle at 30% 30%, #ec4899, #be184a);
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1.8rem;
+            font-weight: 800;
+            border-radius: 50px;
+            cursor: pointer;
+            border: 2px solid white;
         }
     </style>
 </head>
 <body>
 
-    <!-- Fondos y partículas -->
     <div class="space-bg"></div>
-    <div class="stars"></div>
-    <canvas id="particle-canvas"></canvas>
 
-    <!-- Alerta de supergravedad -->
-    <div id="supergravity-banner" class="supergravity-alert">
-        🚀 ¡ACTIVANDO SUPERGRAVEDAD! 🚀<br>
-        <span style="font-size: 1.2rem; font-weight: 400;">Todo cae rápidamente hacia abajo</span>
-    </div>
-
-    <!-- Encabezado -->
     <header>
         <div class="logo-container">
-            <span class="logo-icon">👑</span>
-            <span class="logo-text">El Laboratorio de Danna</span>
+            <span class="logo-icon">🚀</span>
+            <span class="logo-text">AntiGravity Kids</span>
         </div>
-
         <div class="dashboard-controls">
-            <!-- Selector de Gravedad -->
-            <div class="gravity-selector">
-                <button class="gravity-btn" id="grav-zero">Gravedad Cero</button>
-                <button class="gravity-btn active" id="grav-low">Gravedad Baja</button>
-                <button class="gravity-btn" id="grav-super">Supergravedad</button>
-            </div>
-
-            <!-- Contador de estrellas -->
-            <div class="score-badge">
-                <span>⭐</span>
-                <span id="score-text">0 estrellas</span>
-            </div>
-
-            <!-- Audio toggle -->
-            <button class="audio-toggle" id="btn-audio" title="Probar Sonidos Espaciales">🔊</button>
+            <div class="score-badge">⭐ <span id="score-val">0</span></div>
         </div>
     </header>
 
-    <!-- Contenido principal -->
     <main>
-
-        <!-- PANEL DE MENÚ PRINCIPAL -->
-        <div class="menu-container id-active" id="main-menu">
-            <h1 class="welcome-title">¡Hola, Danna! 🪐</h1>
-            <p class="welcome-subtitle">Elige una misión para divertirte con formas, dibujos y números flotantes.</p>
-
-            <div class="game-grid">
-                <!-- Tarjeta Juego 1 -->
-                <div class="game-card" onclick="startGame(1)">
-                    <span class="card-icon">🚀</span>
-                    <h3>Siluetas Espaciales</h3>
-                    <p>Arrastra los juguetes espaciales a sus sombras correspondientes. ¡Ponlos en su lugar!</p>
-                </div>
-
-                <!-- Tarjeta Juego 2 -->
-                <div class="game-card" onclick="startGame(2)">
-                    <span class="card-icon">⭐</span>
-                    <h3>Sumas de Estrellas</h3>
-                    <p>Cuenta las estrellas brillantes y toca el asteroide con el número correcto de la suma.</p>
-                </div>
-
-                <!-- Tarjeta Juego 3 -->
-                <div class="game-card" onclick="startGame(3)">
-                    <span class="card-icon">🦁</span>
-                    <h3>Buscador de Sílabas</h3>
-                    <p>Mira el dibujo. Toca la burbuja con la sílaba (letra) con la que empieza su nombre.</p>
-                </div>
-
-                <!-- Tarjeta Juego 4 -->
-                <div class="game-card" onclick="startGame(4)">
-                    <span class="card-icon">🎨</span>
-                    <h3>Caja de Arena</h3>
-                    <p>Dibuja, graba tu voz espacial y crea bloques de palabras que flotan sin gravedad.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- JUEGO 1: SILUETAS ESPACIALES (Arrastrar y Soltar) -->
-        <div class="game-panel" id="panel-game-1">
-            <div class="panel-header">
-                <h2>🚀 Misión: Siluetas Espaciales</h2>
-                <button class="btn-back" onclick="exitToMenu()">⬅️ Volver</button>
-            </div>
-            <div class="instructions-bubble">
-                <span class="instructions-icon">💡</span>
-                <span>¡Arrastra y acomoda cada objeto de color sobre su sombra gris en la base!</span>
-            </div>
-
-            <!-- Sandbox físico -->
-            <div class="g1-sandbox" id="g1-sandbox"></div>
-
-            <!-- Receptáculos de siluetas -->
-            <div class="g1-slots-container" id="g1-slots"></div>
-        </div>
-
-        <!-- JUEGO 2: SUMAS DE ESTRELLAS (Un Clic) -->
-        <div class="game-panel" id="panel-game-2">
-            <div class="panel-header">
-                <h2>⭐ Misión: Sumas de Estrellas</h2>
-                <button class="btn-back" onclick="exitToMenu()">⬅️ Volver</button>
-            </div>
-            <div class="instructions-bubble">
-                <span class="instructions-icon">💡</span>
-                <span>¡Cuenta las estrellas y toca el asteroide flotante con el número correcto de la suma!</span>
-            </div>
-
-            <!-- Tablero de juego -->
-            <div class="g2-board" id="g2-board">
-                <div class="g2-equation-display" id="g2-equation">
-                    <div class="g2-numbers-text" id="g2-math-text">2 + 3 = ?</div>
-                    <div class="g2-stars-display" id="g2-math-stars">⭐⭐ + ⭐⭐⭐</div>
-                </div>
-                <div class="g2-asteroids-area" id="g2-asteroids-area"></div>
-            </div>
-        </div>
-
-        <!-- JUEGO 3: BUSCADOR DE SÍLABAS (Un Clic) -->
-        <div class="game-panel" id="panel-game-3">
-            <div class="panel-header">
-                <h2>🦁 Misión: Buscador de Sílabas</h2>
-                <button class="btn-back" onclick="exitToMenu()">⬅️ Volver</button>
-            </div>
-            <div class="instructions-bubble">
-                <span class="instructions-icon">💡</span>
-                <span>Mira el holograma. ¿Con qué sílaba empieza? ¡Toca la burbuja correcta!</span>
-            </div>
-
-            <div class="g3-board" id="g3-board">
-                <!-- Tarjeta Holográfica del Objetivo -->
-                <div class="g3-hologram-card">
-                    <span class="g3-emoji-display" id="g3-emoji">🔍</span>
-                    <span class="g3-word-label" id="g3-syllable-target">_ _ _ _</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- JUEGO 4: CAJA DE ARENA CREATIVA (MUNDO ABIERTO) -->
-        <div class="game-panel" id="panel-game-4">
-            <div class="panel-header">
-                <h2>🎨 Misión: El Universo de mi Imaginación</h2>
-                <button class="btn-back" onclick="exitToMenu()">⬅️ Volver</button>
-            </div>
+        <div class="menu-container" id="main-menu">
+            <h1 class="welcome-title">¡Hola, de vuelta al espacio!</h1>
+            <p class="welcome-subtitle">Elige una misión espacial para comenzar a jugar</p>
             
-            <div class="g4-container">
-                <!-- Flash de cámara -->
-                <div class="g4-white-flash" id="g4-flash"></div>
-
-                <!-- Foto polaroid flotante -->
-                <div class="g4-photo-overlay" id="g4-polaroid-overlay" onclick="closePhoto()">
-                    <div class="g4-polaroid-frame">
-                        <div class="g4-polaroid-screen-shot" id="g4-polaroid-shot">
-                            <!-- Emojis flotantes capturados -->
-                        </div>
-                        <div class="g4-polaroid-caption">🪐 ¡El Universo de Danna! 📸</div>
-                    </div>
+            <div class="game-grid">
+                <div class="game-card" onclick="openGame('game-siluetas')">
+                    <span class="card-icon">🪐</span>
+                    <h3>Siluetas Espaciales</h3>
+                    <p>Toca un elemento y luego su silueta gris correspondiente.</p>
                 </div>
-
-                <!-- Espacio Físico Interactivo -->
-                <div class="g4-sandbox-canvas-wrapper" id="g4-sandbox-wrapper">
-                    <!-- Asistente Robot -->
-                    <div class="g4-robot-helper" id="g4-robot" onclick="triggerRobotSpeech()">🤖</div>
-                    <div class="g4-robot-bubble" id="g4-robot-bubble">¡Hola Danna! Tu planeta es el más hermoso del universo. 💖</div>
-
-                    <canvas id="g4-draw-canvas"></canvas>
-                    <!-- Aquí se agregan dinámicamente stickers, criaturas y palabras -->
+                <div class="game-card" onclick="openGame('game-sumas')">
+                    <span class="card-icon">☄️</span>
+                    <h3>Sumas Visuales</h3>
+                    <p>Cuenta las estrellas galácticas y toca el número correcto.</p>
                 </div>
-
-                <!-- Cajón de Stickers -->
-                <div class="g4-stickers-panel" id="g4-stickers-drawer">
-                    <span class="g4-sticker-option" onclick="spawnSticker('🐶')">🐶</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('🐱')">🐱</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('🦁')">🦁</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('🦖')">🦖</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('🦄')">🦄</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('🚀')">🚀</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('🪐')">🪐</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('👽')">👽</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('⭐')">⭐</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('🌸')">🌸</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('L')">L</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('M')">M</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('S')">S</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('T')">T</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('P')">P</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('MA')">MA</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('PA')">PA</span>
-                    <span class="g4-sticker-option" onclick="spawnSticker('LA')">LA</span>
-                </div>
-
-                <!-- Teclado de Palabras -->
-                <div class="g4-keyboard-panel" id="g4-keyboard-drawer">
-                    <div class="g4-keyboard-input-wrapper">
-                        <input type="text" class="g4-keyboard-input" id="g4-key-input" readonly placeholder="Sopla letras...">
-                    </div>
-                    <div class="g4-keyboard-row">
-                        <span class="g4-key" onclick="pressKey('L')">L</span>
-                        <span class="g4-key" onclick="pressKey('M')">M</span>
-                        <span class="g4-key" onclick="pressKey('S')">S</span>
-                        <span class="g4-key" onclick="pressKey('T')">T</span>
-                        <span class="g4-key" onclick="pressKey('P')">P</span>
-                        <span class="g4-key" onclick="pressKey('A')">A</span>
-                        <span class="g4-key" onclick="pressKey('E')">E</span>
-                        <span class="g4-key" onclick="pressKey('I')">I</span>
-                        <span class="g4-key" onclick="pressKey('O')">O</span>
-                        <span class="g4-key" onclick="pressKey('U')">U</span>
-                    </div>
-                    <div class="g4-keyboard-row">
-                        <span class="g4-key" onclick="pressKey('MA')">MA</span>
-                        <span class="g4-key" onclick="pressKey('ME')">ME</span>
-                        <span class="g4-key" onclick="pressKey('PA')">PA</span>
-                        <span class="g4-key" onclick="pressKey('PE')">PE</span>
-                        <span class="g4-key" onclick="pressKey('LA')">LA</span>
-                        <span class="g4-key" onclick="pressKey('SO')">SO</span>
-                    </div>
-                    <div class="g4-keyboard-row">
-                        <span class="g4-key del" onclick="pressKey('BORRAR')">🗑️</span>
-                        <span class="g4-key action" onclick="blowWord()">🌬️ ¡Soplar Palabra!</span>
-                    </div>
-                </div>
-
-                <!-- Barra de herramientas flotante inferior -->
-                <div class="g4-toolbar">
-                    <div class="g4-tool-section">
-                        <span class="g4-tool-label">Pinceles:</span>
-                        <button class="g4-btn-tool active" id="btn-brush-rainbow" onclick="setBrush('rainbow')">🌈 Arcoíris</button>
-                        <button class="g4-btn-tool" id="btn-brush-stars" onclick="setBrush('stars')">⭐ Estrellas</button>
-                        <button class="g4-btn-tool" id="btn-brush-fire" onclick="setBrush('fire')">🔥 Fuego</button>
-                    </div>
-
-                    <div class="g4-tool-section">
-                        <button class="g4-btn-tool" onclick="toggleStickersDrawer()">🎁 Juguetes</button>
-                        <button class="g4-btn-tool" onclick="toggleKeyboardDrawer()">🔤 Teclado</button>
-                        <button class="g4-btn-tool special" id="btn-mic" onclick="toggleMicRecording()">🎙️ Grabar Voz</button>
-                    </div>
-
-                    <div class="g4-tool-section">
-                        <button class="g4-btn-tool" onclick="takeSandboxPhoto()" title="Tomar Foto">📸 Foto</button>
-                        <button class="g4-btn-tool" style="border-color:var(--error);" onclick="clearSandbox()">🧹 Limpiar</button>
-                    </div>
+                <div class="game-card" onclick="openGame('game-silabas')">
+                    <span class="card-icon">🛸</span>
+                    <h3>Buscador de Sílabas</h3>
+                    <p>Ordena las sílabas correctas para armar la palabra.</p>
                 </div>
             </div>
         </div>
 
+        <div class="game-view" id="game-siluetas">
+            <div class="view-header">
+                <h2>🪐 Siluetas Espaciales</h2>
+                <button class="btn-back" onclick="closeAllGames()">Volver al Menú</button>
+            </div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">Instrucciones: 1. Haz clic en un objeto de arriba. 2. Haz clic en su silueta gris abajo.</p>
+            <div class="items-container">
+                <div class="drag-item" id="item-saturno" data-target="slot-saturno" onclick="selectItem(this)">🪐</div>
+                <div class="drag-item" id="item-cohete" data-target="slot-cohete" onclick="selectItem(this)">🚀</div>
+                <div class="drag-item" id="item-ovni" data-target="slot-ovni" onclick="selectItem(this)">🛸</div>
+            </div>
+            <div class="slots-container">
+                <div class="slot-target silhouette" id="slot-cohete" data-item="item-cohete" onclick="matchSlot(this)">🚀</div>
+                <div class="slot-target silhouette" id="slot-saturno" data-item="item-saturno" onclick="matchSlot(this)">🪐</div>
+                <div class="slot-target silhouette" id="slot-ovni" data-item="item-ovni" onclick="matchSlot(this)">🛸</div>
+            </div>
+        </div>
+
+        <div class="game-view" id="game-sumas">
+            <div class="view-header">
+                <h2>☄️ Sumas Visuales</h2>
+                <button class="btn-back" onclick="closeAllGames()">Volver al Menú</button>
+            </div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">Instrucciones: Cuenta las estrellas y presiona el número correcto.</p>
+            <div class="stars-display" id="stars-area">⭐⭐⭐</div>
+            <div class="asteroids-container" id="asteroids-area"></div>
+        </div>
+
+        <div class="game-view" id="game-silabas">
+            <div class="view-header">
+                <h2>🛸 Buscador de Sílabas</h2>
+                <button class="btn-back" onclick="closeAllGames()">Volver al Menú</button>
+            </div>
+            <p style="margin-bottom: 1rem; color: var(--text-muted);">Instrucciones: Presiona las burbujas en orden para armar la palabra.</p>
+            <div class="word-target-container">
+                <div class="word-hint-emoji" id="silaba-emoji">🌙</div>
+                <div class="word-build-space" id="word-current">__ __</div>
+            </div>
+            <div class="bubbles-container" id="bubbles-area"></div>
+        </div>
     </main>
 
-    <!-- MODAL DE EXCELENTE / SIGUIENTE RETO -->
-    <div class="modal" id="celebration-modal">
-        <div class="modal-content">
-            <div class="modal-icon" id="modal-emoji">🎉</div>
-            <h2 id="modal-title">¡Súper, Danna!</h2>
-            <p id="modal-desc">Has resuelto la misión de forma fantástica y ganaste estrellas espaciales.</p>
-            <button class="btn-modal" onclick="closeCelebration()">Siguiente Misión 🚀</button>
-        </div>
-    </div>
-
-    <!-- Pie de página -->
-    <footer>
-        <p>Desarrollado con ❤️ para <strong>Danna</strong> en la plataforma <strong>AntiGravity</strong>.</p>
-    </footer>
-
-    <!-- LOGICA DEL JUEGO (JAVASCRIPT) -->
     <script>
-        /* === CONFIGURACIÓN GENERAL Y ESTADO === */
-        const state = {
-            score: 0,
-            gravityMode: 'low', // 'zero', 'low', 'super'
-            activeGame: null,
-            canvas: null,
-            ctx: null,
-            particles: [],
-            audioContext: null,
-            audioVolume: 0.5,
+        let score = 0;
+        const scoreVal = document.getElementById('score-val');
+
+        function addPoint() {
+            score += 10;
+            scoreVal.textContent = score;
+        }
+
+        function openGame(gameId) {
+            document.getElementById('main-menu').classList.add('hidden');
+            document.querySelectorAll('.game-view').forEach(view => view.classList.remove('active'));
+            document.getElementById(gameId).classList.add('active');
+
+            if(gameId === 'game-sumas') initSumasGame();
+            if(gameId === 'game-silabas') initSilabasGame();
+        }
+
+        function closeAllGames() {
+            document.getElementById('main-menu').classList.remove('hidden');
+            document.querySelectorAll('.game-view').forEach(view => view.classList.remove('active'));
+            selectedItemElement = null;
+        }
+
+        // --- LÓGICA JUEGO 1: SILUETAS ---
+        let selectedItemElement = null;
+
+        function selectItem(element) {
+            document.querySelectorAll('.drag-item').forEach(item => item.classList.remove('selected'));
+            selectedItemElement = element;
+            element.classList.add('selected');
+        }
+
+        function matchSlot(slotElement) {
+            if (!selectedItemElement) {
+                alert("¡Primero selecciona un objeto de arriba!");
+                return;
+            }
+            if (slotElement.dataset.item === selectedItemElement.id) {
+                slotElement.classList.remove('silhouette'); 
+                selectedItemElement.style.visibility = 'hidden'; 
+                selectedItemElement.classList.remove('selected');
+                selectedItemElement = null;
+                addPoint();
+            } else {
+                alert("¡Esa no es mi silueta! Inténtalo con otra.");
+            }
+        }
+
+        // --- LÓGICA JUEGO 2: SUMAS ---
+        function initSumasGame() {
+            const area = document.getElementById('stars-area');
+            const btnArea = document.getElementById('asteroids-area');
+            const correctNum = Math.floor(Math.random() * 5) + 1;
             
-            // Estado del Sandbox (Juego 4)
-            currentBrush: 'rainbow', // 'rainbow', 'stars', 'fire'
-            isDrawing: false,
-            lastX: 0,
-            lastY: 0,
-            isRecordingMic: false,
-            audioChunks: [],
-            mediaRecorder: null,
-            synthesizedSpeechVoices: ["¡Súper!", "¡Qué genial!", "¡Me encanta!", "¡Eres increíble!"]
-        };
+            area.textContent = "⭐".repeat(correctNum);
+            btnArea.innerHTML = '';
 
-        // Valores físicos reducidos para Danna (muy lentos y sencillos)
-        const GRAVITY_PHYSICS = {
-            zero: { pullY: 0, speedMult: 0.45, floatDamp: 0.999 },
-            low: { pullY: 0.01, speedMult: 0.3, floatDamp: 0.995 },
-            super: { pullY: 0.1, speedMult: 0.22, floatDamp: 0.95 }
-        };
-
-        /* === CLASE SINTETIZADORA DE SONIDO ESPACIAL (Web Audio API) === */
-        class SpaceSynth {
-            constructor() {
-                this.volumeNode = null;
+            let opciones = new Set([correctNum]);
+            while(opciones.size < 3) {
+                opciones.add(Math.floor(Math.random() * 5) + 1);
             }
 
-            init() {
-                if (!state.audioContext) {
-                    state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    this.volumeNode = state.audioContext.createGain();
-                    this.volumeNode.gain.setValueAtTime(state.audioVolume, state.audioContext.currentTime);
-                    this.volumeNode.connect(state.audioContext.destination);
-                }
-                if (state.audioContext.state === 'suspended') {
-                    state.audioContext.resume();
-                }
-            }
-
-            playSuccess() {
-                this.init();
-                const now = state.audioContext.currentTime;
-                const scale = [523.25, 659.25, 783.99, 1046.50]; // C5 - E5 - G5 - C6
-                scale.forEach((freq, idx) => {
-                    const osc = state.audioContext.createOscillator();
-                    const gain = state.audioContext.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(freq, now + idx * 0.08);
-                    
-                    gain.gain.setValueAtTime(0, now + idx * 0.08);
-                    gain.gain.linearRampToValueAtTime(0.2, now + idx * 0.08 + 0.02);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.35);
-                    
-                    osc.connect(gain);
-                    gain.connect(this.volumeNode);
-                    osc.start(now + idx * 0.08);
-                    osc.stop(now + idx * 0.08 + 0.4);
-                });
-            }
-
-            playError() {
-                this.init();
-                const now = state.audioContext.currentTime;
-                const osc = state.audioContext.createOscillator();
-                const gain = state.audioContext.createGain();
-                
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(261.63, now); // C4
-                osc.frequency.exponentialRampToValueAtTime(130.81, now + 0.25); // Boing
-                
-                gain.gain.setValueAtTime(0.3, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
-                
-                osc.connect(gain);
-                gain.connect(this.volumeNode);
-                
-                osc.start(now);
-                osc.stop(now + 0.3);
-            }
-
-            playPop() {
-                this.init();
-                const now = state.audioContext.currentTime;
-                const osc = state.audioContext.createOscillator();
-                const gain = state.audioContext.createGain();
-                
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(880, now);
-                osc.frequency.exponentialRampToValueAtTime(200, now + 0.08);
-                
-                gain.gain.setValueAtTime(0.25, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
-                
-                osc.connect(gain);
-                gain.connect(this.volumeNode);
-                
-                osc.start(now);
-                osc.stop(now + 0.1);
-            }
-
-            playWin() {
-                this.init();
-                const now = state.audioContext.currentTime;
-                const melody = [523.25, 523.25, 523.25, 659.25, 587.33, 659.25, 783.99, 1046.50];
-                const timings = [0, 0.1, 0.2, 0.3, 0.45, 0.55, 0.65, 0.8];
-                const durations = [0.08, 0.08, 0.08, 0.12, 0.08, 0.08, 0.12, 0.5];
-
-                melody.forEach((freq, idx) => {
-                    const osc = state.audioContext.createOscillator();
-                    const gain = state.audioContext.createGain();
-                    
-                    osc.type = (idx === melody.length - 1) ? 'sine' : 'triangle';
-                    osc.frequency.setValueAtTime(freq, now + timings[idx]);
-                    
-                    gain.gain.setValueAtTime(0, now + timings[idx]);
-                    gain.gain.linearRampToValueAtTime(0.18, now + timings[idx] + 0.02);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + timings[idx] + durations[idx]);
-                    
-                    osc.connect(gain);
-                    gain.connect(this.volumeNode);
-                    osc.start(now + timings[idx]);
-                    osc.stop(now + timings[idx] + durations[idx] + 0.05);
-                });
-            }
-
-            playSnapPhoto() {
-                this.init();
-                const now = state.audioContext.currentTime;
-                const osc = state.audioContext.createOscillator();
-                const gain = state.audioContext.createGain();
-
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(800, now);
-                osc.frequency.exponentialRampToValueAtTime(100, now + 0.15);
-
-                gain.gain.setValueAtTime(0.3, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-
-                osc.connect(gain);
-                gain.connect(this.volumeNode);
-                osc.start(now);
-                osc.stop(now + 0.15);
-            }
-        }
-
-        const synth = new SpaceSynth();
-
-        // Probar sonido
-        document.getElementById('btn-audio').addEventListener('click', () => {
-            synth.playSuccess();
-        });
-
-        /* === SISTEMA DE PARTÍCULAS EN CANVAS (EXPLOSIONES DE ESTRELLAS) === */
-        function initParticles() {
-            state.canvas = document.getElementById('particle-canvas');
-            state.ctx = state.canvas.getContext('2d');
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-        }
-
-        function resizeCanvas() {
-            if (state.canvas) {
-                state.canvas.width = window.innerWidth;
-                state.canvas.height = window.innerHeight;
-            }
-        }
-
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                this.radius = Math.random() * 4 + 2;
-                this.vx = (Math.random() - 0.5) * 8;
-                this.vy = (Math.random() - 0.5) * 8 - 2;
-                this.alpha = 1;
-                this.decay = Math.random() * 0.02 + 0.015;
-            }
-
-            draw() {
-                state.ctx.save();
-                state.ctx.globalAlpha = this.alpha;
-                state.ctx.shadowBlur = 10;
-                state.ctx.shadowColor = this.color;
-                state.ctx.fillStyle = this.color;
-                
-                state.ctx.beginPath();
-                state.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                state.ctx.fill();
-                state.ctx.restore();
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.vy += 0.05;
-                this.alpha -= this.decay;
-            }
-        }
-
-        function spawnParticles(x, y, count = 25, color = '#ec4899') {
-            const colors = [color, '#06b6d4', '#fbbf24', '#ffffff', '#a855f7'];
-            for (let i = 0; i < count; i++) {
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                state.particles.push(new Particle(x, y, randomColor));
-            }
-        }
-
-        function updateParticles() {
-            if (!state.ctx) return;
-            state.ctx.clearRect(0, 0, state.canvas.width, state.canvas.height);
-            
-            for (let i = state.particles.length - 1; i >= 0; i--) {
-                const p = state.particles[i];
-                p.update();
-                p.draw();
-                if (p.alpha <= 0) {
-                    state.particles.splice(i, 1);
-                }
-            }
-            requestAnimationFrame(updateParticles);
-        }
-
-        /* === CONFIGURACIÓN DE LA GRAVEDAD === */
-        const gravityBtns = {
-            zero: document.getElementById('grav-zero'),
-            low: document.getElementById('grav-low'),
-            super: document.getElementById('grav-super')
-        };
-
-        function setGravity(mode) {
-            state.gravityMode = mode;
-            Object.keys(gravityBtns).forEach(k => {
-                gravityBtns[k].classList.remove('active');
-            });
-            gravityBtns[mode].classList.add('active');
-
-            if (mode === 'super') {
-                const banner = document.getElementById('supergravity-banner');
-                banner.classList.add('active');
-                setTimeout(() => { banner.classList.remove('active'); }, 1800);
-            }
-        }
-
-        gravityBtns.zero.addEventListener('click', () => setGravity('zero'));
-        gravityBtns.low.addEventListener('click', () => setGravity('low'));
-        gravityBtns.super.addEventListener('click', () => setGravity('super'));
-
-
-        /* === MENÚ Y TRANSICIÓN DE PANELES === */
-        const mainMenu = document.getElementById('main-menu');
-        const panels = {
-            1: document.getElementById('panel-game-1'),
-            2: document.getElementById('panel-game-2'),
-            3: document.getElementById('panel-game-3'),
-            4: document.getElementById('panel-game-4')
-        };
-
-        function startGame(gameId) {
-            mainMenu.style.display = 'none';
-            Object.values(panels).forEach(p => p.classList.remove('active'));
-            panels[gameId].classList.add('active');
-            state.activeGame = gameId;
-            synth.playPop();
-
-            if (gameId === 1) initGame1();
-            if (gameId === 2) initGame2();
-            if (gameId === 3) initGame3();
-            if (gameId === 4) initGame4();
-        }
-
-        function exitToMenu() {
-            cleanupGameLoops();
-            Object.values(panels).forEach(p => p.classList.remove('active'));
-            mainMenu.style.display = 'block';
-            state.activeGame = null;
-            synth.playPop();
-        }
-
-        function addScore(points, x, y) {
-            state.score += points;
-            document.getElementById('score-text').innerText = `${state.score} estrellas`;
-            if (x && y) {
-                spawnParticles(x, y, 30, '#fbbf24');
-            }
-        }
-
-        /* === BUCLE GENERAL DE FÍSICA PARA LOS JUEGOS === */
-        let gameLoopId = null;
-        const activePhysicsObjects = [];
-
-        function cleanupGameLoops() {
-            if (gameLoopId) {
-                cancelAnimationFrame(gameLoopId);
-                gameLoopId = null;
-            }
-            activePhysicsObjects.length = 0;
-            
-            document.getElementById('g1-sandbox').innerHTML = '';
-            document.getElementById('g1-slots').innerHTML = '';
-            document.getElementById('g2-asteroids-area').innerHTML = '';
-            
-            // Limpiar burbujas de sílabas del juego 3
-            const board = document.getElementById('g3-board');
-            const elements = board.querySelectorAll('.g3-bubble');
-            elements.forEach(el => el.remove());
-
-            // Limpiar elementos creados en Sandbox
-            clearSandbox();
-        }
-
-        function runGlobalPhysics() {
-            if (!state.activeGame) return;
-
-            const physics = GRAVITY_PHYSICS[state.gravityMode];
-
-            activePhysicsObjects.forEach(obj => {
-                if (obj.isDragging) return;
-
-                // Aplicar aceleración por gravedad
-                obj.vy += physics.pullY;
-
-                // Aplicar fricción ambiental (flotación)
-                obj.vx *= physics.floatDamp;
-                obj.vy *= physics.floatDamp;
-
-                // Actualizar posiciones con factor de velocidad
-                obj.x += obj.vx * physics.speedMult;
-                obj.y += obj.vy * physics.speedMult;
-
-                // COMPORTAMIENTO SEGÚN JUEGO
-                if (state.activeGame === 1 || state.activeGame === 4) {
-                    // Rebote en paredes
-                    const rightLimit = obj.parentWidth - obj.width;
-                    const bottomLimit = obj.parentHeight - obj.height;
-
-                    if (obj.x < 0) {
-                        obj.x = 0;
-                        obj.vx *= -0.85;
-                    } else if (obj.x > rightLimit) {
-                        obj.x = rightLimit;
-                        obj.vx *= -0.85;
-                    }
-
-                    if (obj.y < 0) {
-                        obj.y = 0;
-                        obj.vy *= -0.85;
-                    } else if (obj.y > bottomLimit) {
-                        obj.y = bottomLimit;
-                        obj.vy *= -0.85;
-                    }
-                } 
-                else if (state.activeGame === 2) {
-                    // Asteroides Matemáticos suben lentamente
-                    if (state.gravityMode === 'super') {
-                        if (obj.y > obj.parentHeight) {
-                            obj.y = -obj.height;
-                            obj.x = Math.random() * (obj.parentWidth - obj.width);
-                            obj.vy = Math.random() * 0.7 + 0.3;
-                        }
+            Array.from(opciones).sort().forEach(num => {
+                const btn = document.createElement('button');
+                btn.className = 'asteroid-btn';
+                btn.textContent = num;
+                btn.onclick = () => {
+                    if(num === correctNum) {
+                        alert('¡Excelente! Conteo correcto ☄️');
+                        addPoint();
+                        initSumasGame();
                     } else {
-                        obj.vy -= 0.012; // Empuje lento ascendente
-                        if (obj.y < -obj.height) {
-                            obj.y = obj.parentHeight;
-                            obj.x = Math.random() * (obj.parentWidth - obj.width);
-                            obj.vy = -(Math.random() * 0.4 + 0.2);
+                        alert('¡Inténtalo de nuevo!');
+                    }
+                };
+                btnArea.appendChild(btn);
+            });
+        }
+
+        // --- LÓGICA JUEGO 3: SÍLABAS ---
+        const palabrasData = [
+            { emoji: '🌙', silabas: ['LU', 'NA'], completa: 'LUNA' },
+            { emoji: '☀️', silabas: ['SO', 'L'], completa: 'SOL' },
+            { emoji: '🚀', silabas: ['CO', 'HE', 'TE'], completa: 'COHETE' }
+        ];
+        let indexPalabra = 0;
+        let silabasMarcadas = [];
+
+        function initSilabasGame() {
+            const data = palabrasData[indexPalabra];
+            document.getElementById('silaba-emoji').textContent = data.emoji;
+            document.getElementById('word-current').textContent = data.silabas.map(() => '__').join(' ');
+            
+            const bubblesArea = document.getElementById('bubbles-area');
+            bubblesArea.innerHTML = '';
+            silabasMarcadas = [];
+
+            let desordenadas = [...data.silabas].sort(() => Math.random() - 0.5);
+
+            desordenadas.forEach(silaba => {
+                const bub = document.createElement('button');
+                bub.className = 'syllable-bubble';
+                bub.textContent = silaba;
+                bub.onclick = () => {
+                    silabasMarcadas.push(silaba);
+                    document.getElementById('word-current').textContent = silabasMarcadas.join(' ');
+                    bub.style.visibility = 'hidden';
+
+                    if(silabasMarcadas.length === data.silabas.length) {
+                        if(silabasMarcadas.join('') === data.completa) {
+                            alert('¡Fantástico! Palabra correcta');
+                            addPoint();
+                            indexPalabra = (indexPalabra + 1) % palabrasData.length;
+                            initSilabasGame();
+                        } else {
+                            alert('¡Inténtalo de nuevo!');
+                            initSilabasGame();
                         }
                     }
-                }
-                else if (state.activeGame === 3) {
-                    // Burbujas de Sílabas caen lentamente
-                    let fallSpeed = 0.22;
-                    if (state.gravityMode === 'zero') fallSpeed = 0.06;
-                    if (state.gravityMode === 'super') fallSpeed = 0.85;
-
-                    obj.y += fallSpeed;
-                    
-                    if (obj.y > obj.parentHeight) {
-                        obj.y = -obj.height;
-                        obj.x = Math.random() * (obj.parentWidth - obj.width);
-                    }
-                }
-
-                // Renderizar posición visual del objeto
-                obj.el.style.left = `${obj.x}px`;
-                obj.el.style.top = `${obj.y}px`;
-            });
-
-            gameLoopId = requestAnimationFrame(runGlobalPhysics);
-        }
-
-
-        /* ==============================================
-           MINIJUEGO 1: SILUETAS ESPACIALES (Arrastrar y Soltar)
-           ============================================== */
-        const G1_ITEMS = [
-            { id: "rocket", emoji: "🚀" },
-            { id: "planet", emoji: "🪐" },
-            { id: "apple", emoji: "🍎" },
-            { id: "cat", emoji: "🐱" },
-            { id: "ball", emoji: "⚽" },
-            { id: "dino", emoji: "🦖" },
-            { id: "car", emoji: "🚗" },
-            { id: "star", emoji: "⭐" }
-        ];
-        let g1PlacedCount = 0;
-
-        function initGame1() {
-            cleanupGameLoops();
-            g1PlacedCount = 0;
-
-            const sandbox = document.getElementById('g1-sandbox');
-            const slotsContainer = document.getElementById('g1-slots');
-
-            const sandRect = sandbox.getBoundingClientRect();
-            const sandWidth = sandRect.width || 800;
-            const sandHeight = sandRect.height || 340;
-
-            const levelItems = [...G1_ITEMS].sort(() => Math.random() - 0.5).slice(0, 3);
-            const shuffledItems = [...levelItems].sort(() => Math.random() - 0.5);
-
-            levelItems.forEach((item) => {
-                const slot = document.createElement('div');
-                slot.className = 'g1-slot';
-                slot.dataset.itemId = item.id;
-                slot.innerHTML = `<span class="g1-slot-silhouette">${item.emoji}</span>`;
-                slotsContainer.appendChild(slot);
-            });
-
-            shuffledItems.forEach((item) => {
-                const element = document.createElement('div');
-                element.className = 'g1-item';
-                element.innerText = item.emoji;
-                element.dataset.itemId = item.id;
-                sandbox.appendChild(element);
-
-                const itemWidth = 100;
-                const itemHeight = 100;
-
-                const posX = Math.random() * (sandWidth - itemWidth - 20) + 10;
-                const posY = Math.random() * (sandHeight - itemHeight - 20) + 10;
-
-                const physObj = {
-                    el: element,
-                    itemId: item.id,
-                    x: posX,
-                    y: posY,
-                    vx: (Math.random() - 0.5) * 1.5,
-                    vy: (Math.random() - 0.5) * 1.5,
-                    width: itemWidth,
-                    height: itemHeight,
-                    parentWidth: sandWidth,
-                    parentHeight: sandHeight,
-                    isDragging: false
                 };
-
-                activePhysicsObjects.push(physObj);
-                setupG1DragEvents(physObj);
-            });
-
-            runGlobalPhysics();
-        }
-
-        function setupG1DragEvents(obj) {
-            const el = obj.el;
-            let startX, startY;
-            let initialX, initialY;
-
-            el.addEventListener('pointerdown', (e) => {
-                e.preventDefault();
-                obj.isDragging = true;
-                el.setPointerCapture(e.pointerId);
-
-                const rect = el.getBoundingClientRect();
-                const parentRect = el.parentElement.getBoundingClientRect();
-
-                startX = e.clientX;
-                startY = e.clientY;
-                initialX = rect.left - parentRect.left;
-                initialY = rect.top - parentRect.top;
-
-                synth.playPop();
-            });
-
-            el.addEventListener('pointermove', (e) => {
-                if (!obj.isDragging) return;
-                e.preventDefault();
-                
-                const dx = e.clientX - startX;
-                const dy = e.clientY - startY;
-                
-                obj.x = initialX + dx;
-                obj.y = initialY + dy;
-
-                el.style.left = `${obj.x}px`;
-                el.style.top = `${obj.y}px`;
-
-                checkG1SlotsOverlap(obj);
-            });
-
-            el.addEventListener('pointerup', (e) => {
-                if (!obj.isDragging) return;
-                obj.isDragging = false;
-                el.releasePointerCapture(e.pointerId);
-
-                const matchedSlot = verifyG1SlotDrop(obj);
-
-                if (matchedSlot) {
-                    matchedSlot.innerHTML = '';
-                    matchedSlot.appendChild(el);
-                    el.style.position = 'relative';
-                    el.style.left = '0';
-                    el.style.top = '0';
-                    matchedSlot.classList.add('filled');
-                    matchedSlot.classList.remove('highlight');
-
-                    const idx = activePhysicsObjects.indexOf(obj);
-                    if (idx > -1) activePhysicsObjects.splice(idx, 1);
-
-                    const rect = matchedSlot.getBoundingClientRect();
-                    addScore(10, rect.left + rect.width / 2, rect.top + rect.height / 2);
-                    synth.playSuccess();
-
-                    g1PlacedCount++;
-                    
-                    if (g1PlacedCount === 3) {
-                        setTimeout(() => {
-                            triggerCelebration("¡Siluetas Armadas!", "Acomodaste todos los juguetes espaciales.", () => {
-                                initGame1();
-                            });
-                        }, 600);
-                    }
-                } else {
-                    synth.playError();
-                    obj.vx = (Math.random() - 0.5) * 3;
-                    obj.vy = -2;
-                    document.querySelectorAll('#g1-slots .g1-slot').forEach(s => s.classList.remove('highlight'));
-                }
+                bubblesArea.appendChild(bub);
             });
         }
-
-        function checkG1SlotsOverlap(obj) {
-            const elRect = obj.el.getBoundingClientRect();
-            const slots = document.querySelectorAll('#g1-slots .g1-slot');
-
-            slots.forEach(slot => {
-                if (slot.classList.contains('filled')) return;
-                const slotRect = slot.getBoundingClientRect();
-
-                const overlap = !(elRect.right < slotRect.left || 
-                                  elRect.left > slotRect.right || 
-                                  elRect.bottom < slotRect.top || 
-                                  elRect.top > slotRect.bottom);
-
-                if (overlap) {
-                    slot.classList.add('highlight');
-                } else {
-                    slot.classList.remove('highlight');
-                }
-            });
-        }
-
-        function verifyG1SlotDrop(obj) {
-            const elRect = obj.el.getBoundingClientRect();
-            const slots = document.querySelectorAll('#g1-slots .g1-slot');
-            let bestMatch = null;
-
-            slots.forEach(slot => {
-                if (slot.classList.contains('filled')) return;
-                
-                const slotRect = slot.getBoundingClientRect();
-                const overlap = !(elRect.right < slotRect.left || 
-                                  elRect.left > slotRect.right || 
-                                  elRect.bottom < slotRect.top || 
-                                  elRect.top > slotRect.bottom);
-
-                if (overlap && slot.dataset.itemId === obj.itemId) {
-                    bestMatch = slot;
-                }
-            });
-
-            return bestMatch;
-        }
-
-
-        /* ==============================================
-           MINIJUEGO 2: SUMAS DE ESTRELLAS (Resultados <= 10)
-           ============================================== */
-        const G2_LEVELS = [
-            { num1: 2, num2: 1, ans: 3, options: [3, 4, 2], stars1: "⭐⭐", stars2: "⭐" },
-            { num1: 3, num2: 2, ans: 5, options: [4, 5, 6], stars1: "⭐⭐⭐", stars2: "⭐⭐" },
-            { num1: 4, num2: 1, ans: 5, options: [5, 3, 6], stars1: "⭐⭐⭐⭐", stars2: "⭐" },
-            { num1: 2, num2: 2, ans: 4, options: [3, 4, 5], stars1: "⭐⭐", stars2: "⭐⭐" },
-            { num1: 5, num2: 2, ans: 7, options: [6, 7, 8], stars1: "⭐⭐⭐⭐⭐", stars2: "⭐⭐" },
-            { num1: 3, num2: 3, ans: 6, options: [5, 6, 7], stars1: "⭐⭐⭐", stars2: "⭐⭐⭐" },
-            { num1: 6, num2: 2, ans: 8, options: [8, 7, 9], stars1: "⭐⭐⭐⭐⭐⭐", stars2: "⭐⭐" },
-            { num1: 4, num2: 3, ans: 7, options: [6, 7, 8], stars1: "⭐⭐⭐⭐", stars2: "⭐⭐⭐" },
-            { num1: 5, num2: 4, ans: 9, options: [8, 9, 10], stars1: "⭐⭐⭐⭐⭐", stars2: "⭐⭐⭐⭐" },
-            { num1: 5, num2: 5, ans: 10, options: [9, 10, 8], stars1: "⭐⭐⭐⭐⭐", stars2: "⭐⭐⭐⭐⭐" }
-        ];
-        let g2Level = 0;
-        let g2CurrentAnswer = 0;
-
-        function initGame2() {
-            cleanupGameLoops();
-            
-            const area = document.getElementById('g2-asteroids-area');
-            const mathText = document.getElementById('g2-math-text');
-            const mathStars = document.getElementById('g2-math-stars');
-
-            const areaRect = area.getBoundingClientRect();
-            const areaWidth = areaRect.width || 800;
-            const areaHeight = areaRect.height || 380;
-
-            const levelData = G2_LEVELS[g2Level % G2_LEVELS.length];
-            g2CurrentAnswer = levelData.ans;
-
-            mathText.innerText = `${levelData.num1} + ${levelData.num2} = ?`;
-            mathStars.innerHTML = `${levelData.stars1} <span class="plus-sign">+</span> ${levelData.stars2}`;
-
-            levelData.options.forEach((val, idx) => {
-                const asteroid = document.createElement('div');
-                asteroid.className = 'g2-asteroid';
-                
-                let starString = "⭐".repeat(val);
-                asteroid.innerHTML = `
-                    <span class="g2-ast-num">${val}</span>
-                    <span class="g2-ast-stars">${starString}</span>
-                `;
-                asteroid.dataset.value = val;
-                area.appendChild(asteroid);
-
-                const astWidth = 120;
-                const astHeight = 120;
-
-                const colWidth = areaWidth / 3;
-                const startX = colWidth * idx + (colWidth - astWidth) / 2;
-                const startY = areaHeight - astHeight - (Math.random() * 40);
-
-                const physObj = {
-                    el: asteroid,
-                    value: val,
-                    x: startX,
-                    y: startY,
-                    vx: (Math.random() - 0.5) * 0.7,
-                    vy: -(Math.random() * 0.4 + 0.2),
-                    width: astWidth,
-                    height: astHeight,
-                    parentWidth: areaWidth,
-                    parentHeight: areaHeight
-                };
-
-                activePhysicsObjects.push(physObj);
-
-                asteroid.addEventListener('click', (e) => {
-                    handleG2AsteroidClick(physObj, e.clientX, e.clientY);
-                });
-            });
-
-            runGlobalPhysics();
-        }
-
-        function handleG2AsteroidClick(obj, clickX, clickY) {
-            if (obj.value === g2CurrentAnswer) {
-                synth.playWin();
-                addScore(15, clickX, clickY);
-
-                obj.el.style.transform = 'scale(0)';
-                obj.el.style.opacity = '0';
-
-                setTimeout(() => {
-                    g2Level++;
-                    initGame2();
-                }, 800);
-            } else {
-                synth.playError();
-                obj.el.classList.add('shake');
-                setTimeout(() => {
-                    obj.el.classList.remove('shake');
-                }, 400);
-                obj.vx = (Math.random() - 0.5) * 4;
-            }
-        }
-
-
-        /* ==============================================
-           MINIJUEGO 3: BUSCADOR DE SÍLABAS
-           ============================================== */
-        const G3_DATA = [
-            { word: "LUPA", syllable: "LU", emoji: "🔍", distractors: ["MA", "PE", "SO"] },
-            { word: "MESA", syllable: "ME", emoji: "🪑", distractors: ["PA", "LU", "TI"] },
-            { word: "SOPA", syllable: "SO", emoji: "🥣", distractors: ["ME", "PA", "TO"] },
-            { word: "TOMATE", syllable: "TO", emoji: "🍅", distractors: ["LA", "SU", "PI"] },
-            { word: "PUMA", syllable: "PU", emoji: "🐆", distractors: ["MA", "LO", "SE"] },
-            { word: "LATA", syllable: "LA", emoji: "🪙", distractors: ["SO", "ME", "PU"] },
-            { word: "PELOTA", syllable: "PE", emoji: "⚽", distractors: ["TA", "LU", "MO"] },
-            { word: "SOL", syllable: "SO", emoji: "☀️", distractors: ["PE", "LA", "MI"] },
-            { word: "PATO", syllable: "PA", emoji: "🦆", distractors: ["ME", "LO", "SU"] },
-            { word: "LIMÓN", syllable: "LI", emoji: "🍋", distractors: ["TO", "SA", "PE"] }
-        ];
-        let g3Level = 0;
-        let g3CurrentTargetSyllable = "";
-
-        function initGame3() {
-            cleanupGameLoops();
-            g3CurrentSyllableIndex = 0;
-
-            const board = document.getElementById('g3-board');
-            const emojiDisplay = document.getElementById('g3-emoji');
-            const targetLabel = document.getElementById('g3-syllable-target');
-
-            const boardRect = board.getBoundingClientRect();
-            const boardWidth = boardRect.width || 800;
-            const boardHeight = boardRect.height || 480;
-
-            const levelData = G3_DATA[g3Level % G3_DATA.length];
-            g3CurrentTargetSyllable = levelData.syllable;
-
-            emojiDisplay.innerText = levelData.emoji;
-            targetLabel.innerText = "? " + "_ ".repeat(levelData.word.length / 2);
-
-            const allSyllables = [levelData.syllable, ...levelData.distractors];
-
-            allSyllables.forEach((syl, idx) => {
-                const element = document.createElement('div');
-                element.className = 'g3-bubble';
-                element.innerText = syl;
-                element.dataset.syllable = syl;
-                board.appendChild(element);
-
-                const bubWidth = 100;
-                const bubHeight = 100;
-
-                const colWidth = boardWidth / allSyllables.length;
-                const startX = colWidth * idx + (colWidth - bubWidth) / 2;
-                const startY = -bubHeight - (Math.random() * 120);
-
-                const physObj = {
-                    el: element,
-                    syllable: syl,
-                    x: startX,
-                    y: startY,
-                    vx: 0,
-                    vy: 0,
-                    width: bubWidth,
-                    height: bubHeight,
-                    parentWidth: boardWidth,
-                    parentHeight: boardHeight
-                };
-
-                activePhysicsObjects.push(physObj);
-
-                element.addEventListener('click', (e) => {
-                    handleG3BubbleClick(physObj, levelData, e.clientX, e.clientY);
-                });
-            });
-
-            runGlobalPhysics();
-        }
-
-        function handleG3BubbleClick(obj, levelData, clickX, clickY) {
-            if (obj.syllable === g3CurrentTargetSyllable) {
-                synth.playWin();
-                addScore(10, clickX, clickY);
-
-                document.getElementById('g3-syllable-target').innerText = levelData.word;
-
-                obj.el.style.transform = 'scale(0)';
-                obj.el.style.opacity = '0';
-
-                const idx = activePhysicsObjects.indexOf(obj);
-                if (idx > -1) activePhysicsObjects.splice(idx, 1);
-
-                setTimeout(() => {
-                    triggerCelebration("¡Palabra Identificada!", `¡Muy bien, empieza con la sílaba ${levelData.syllable}!`, () => {
-                        g3Level++;
-                        initGame3();
-                    });
-                }, 800);
-            } else {
-                synth.playError();
-                obj.el.classList.add('shake');
-                setTimeout(() => {
-                    obj.el.classList.remove('shake');
-                }, 400);
-
-                obj.y -= 25;
-            }
-        }
-
-
-        /* ==============================================
-           MINIJUEGO 4: CAJA DE ARENA ANTIGRAVEDAD (SANDBOX)
-           ============================================== */
-        let drawCanvas = null;
-        let drawCtx = null;
-        let g4SandboxWrapper = null;
-        let g4Width = 800;
-        let g4Height = 500;
-
-        function initGame4() {
-            cleanupGameLoops();
-            
-            g4SandboxWrapper = document.getElementById('g4-sandbox-wrapper');
-            drawCanvas = document.getElementById('g4-draw-canvas');
-            drawCtx = drawCanvas.getContext('2d');
-            
-            resizeSandboxCanvas();
-            window.addEventListener('resize', resizeSandboxCanvas);
-            
-            // Eventos del lienzo de dibujo
-            drawCanvas.addEventListener('pointerdown', startSandboxDrawing);
-            drawCanvas.addEventListener('pointermove', drawInSandbox);
-            drawCanvas.addEventListener('pointerup', endSandboxDrawing);
-            drawCanvas.addEventListener('pointerleave', endSandboxDrawing);
-
-            // Asistente Robot habla solo
-            setTimeout(() => {
-                if (state.activeGame === 4) triggerRobotSpeech();
-            }, 1000);
-
-            // Configurar micrófono/grabador
-            setupMicRecorder();
-
-            runGlobalPhysics();
-        }
-
-        function resizeSandboxCanvas() {
-            if (drawCanvas && g4SandboxWrapper && state.activeGame === 4) {
-                const rect = g4SandboxWrapper.getBoundingClientRect();
-                g4Width = rect.width;
-                g4Height = rect.height;
-                drawCanvas.width = g4Width;
-                drawCanvas.height = g4Height;
-                
-                // Redibujar el lienzo de ser necesario, pero como son trazos físicos que flotan, no importa borrar el canvas
-                drawCtx.lineCap = 'round';
-                drawCtx.lineJoin = 'round';
-            }
-        }
-
-        // --- SISTEMA DE DIBUJO FÍSICO ("LIENZO DE GRAVEDAD") ---
-        function startSandboxDrawing(e) {
-            state.isDrawing = true;
-            const rect = drawCanvas.getBoundingClientRect();
-            state.lastX = e.clientX - rect.left;
-            state.lastY = e.clientY - rect.top;
-            synth.playPop();
-        }
-
-        function drawInSandbox(e) {
-            if (!state.isDrawing) return;
-            const rect = drawCanvas.getBoundingClientRect();
-            const currentX = e.clientX - rect.left;
-            const currentY = e.clientY - rect.top;
-
-            // Spawn de chispas o partículas físicas que FLOTARÁN
-            spawnConstellationDot(currentX, currentY);
-
-            state.lastX = currentX;
-            state.lastY = currentY;
-        }
-
-        function endSandboxDrawing() {
-            state.isDrawing = false;
-        }
-
-        function setBrush(brushType) {
-            state.currentBrush = brushType;
-            
-            const btnRainbow = document.getElementById('btn-brush-rainbow');
-            const btnStars = document.getElementById('btn-brush-stars');
-            const btnFire = document.getElementById('btn-brush-fire');
-            
-            btnRainbow.classList.remove('active');
-            btnStars.classList.remove('active');
-            btnFire.classList.remove('active');
-            
-            if (brushType === 'rainbow') btnRainbow.classList.add('active');
-            if (brushType === 'stars') btnStars.classList.add('active');
-            if (brushType === 'fire') btnFire.classList.add('active');
-            
-            synth.playPop();
-        }
-
-        function spawnConstellationDot(x, y) {
-            const el = document.createElement('div');
-            el.className = 'g4-constellation-dot';
-            g4SandboxWrapper.appendChild(el);
-
-            let color = '#fff';
-            let size = 15;
-            let content = '';
-
-            if (state.currentBrush === 'rainbow') {
-                // Generar color aleatorio de arcoiris
-                const hues = [0, 45, 90, 150, 200, 280, 320];
-                const randHue = hues[Math.floor(Math.random() * hues.length)];
-                color = `hsl(${randHue}, 90%, 65%)`;
-                el.style.backgroundColor = color;
-                el.style.color = color;
-                size = 14;
-            } 
-            else if (state.currentBrush === 'stars') {
-                color = '#fbbf24';
-                el.innerText = '★';
-                el.style.color = color;
-                el.style.fontSize = '1.4rem';
-                el.style.fontWeight = 'bold';
-                size = 20;
-            } 
-            else if (state.currentBrush === 'fire') {
-                color = '#f97316';
-                el.innerText = '🔥';
-                el.style.color = color;
-                el.style.fontSize = '1.3rem';
-                size = 18;
-            }
-
-            el.style.width = `${size}px`;
-            el.style.height = `${size}px`;
-            el.style.color = color;
-
-            const physObj = {
-                el: el,
-                x: x - size/2,
-                y: y - size/2,
-                vx: (Math.random() - 0.5) * 1.5,
-                vy: (Math.random() - 0.5) * 1.5,
-                width: size,
-                height: size,
-                parentWidth: g4Width,
-                parentHeight: g4Height,
-                isDrawingTrace: true
-            };
-
-            activePhysicsObjects.push(physObj);
-
-            // Borrar el trazo después de 15 segundos para no saturar
-            setTimeout(() => {
-                const idx = activePhysicsObjects.indexOf(physObj);
-                if (idx > -1) activePhysicsObjects.splice(idx, 1);
-                el.remove();
-            }, 15000);
-        }
-
-        // --- SISTEMA DE STICKERS (JUGUETES FLOTANTES) ---
-        function toggleStickersDrawer() {
-            const drawer = document.getElementById('g4-stickers-drawer');
-            const kbd = document.getElementById('g4-keyboard-drawer');
-            kbd.classList.remove('active');
-            drawer.classList.toggle('active');
-            synth.playPop();
-        }
-
-        function spawnSticker(emoji) {
-            const wrapper = document.getElementById('g4-sandbox-wrapper');
-            const el = document.createElement('div');
-            el.className = 'g4-element g4-sticker';
-            el.innerText = emoji;
-            wrapper.appendChild(el);
-
-            const size = 80;
-            const startX = Math.random() * (g4Width - size - 40) + 20;
-            const startY = Math.random() * (g4Height - size - 40) + 20;
-
-            const physObj = {
-                el: el,
-                x: startX,
-                y: startY,
-                vx: (Math.random() - 0.5) * 2,
-                vy: (Math.random() - 0.5) * 2,
-                width: size,
-                height: size,
-                parentWidth: g4Width,
-                parentHeight: g4Height,
-                isDragging: false
-            };
-
-            activePhysicsObjects.push(physObj);
-            setupSandboxDrag(physObj);
-            
-            // Cerrar panel
-            document.getElementById('g4-stickers-drawer').classList.remove('active');
-        }
-
-        function setupSandboxDrag(obj) {
-            const el = obj.el;
-            let startX, startY;
-            let initialX, initialY;
-
-            el.addEventListener('pointerdown', (e) => {
-                e.preventDefault();
-                obj.isDragging = true;
-                el.setPointerCapture(e.pointerId);
-
-                const rect = el.getBoundingClientRect();
-                const parentRect = el.parentElement.getBoundingClientRect();
-
-                startX = e.clientX;
-                startY = e.clientY;
-                initialX = rect.left - parentRect.left;
-                initialY = rect.top - parentRect.top;
-
-                synth.playPop();
-            });
-
-            el.addEventListener('pointermove', (e) => {
-                if (!obj.isDragging) return;
-                e.preventDefault();
-                
-                const dx = e.clientX - startX;
-                const dy = e.clientY - startY;
-                
-                obj.x = initialX + dx;
-                obj.y = initialY + dy;
-
-                el.style.left = `${obj.x}px`;
-                el.style.top = `${obj.y}px`;
-            });
-
-            el.addEventListener('pointerup', (e) => {
-                if (!obj.isDragging) return;
-                obj.isDragging = false;
-                el.releasePointerCapture(e.pointerId);
-
-                // Darle una pequeña velocidad al soltar
-                obj.vx = (Math.random() - 0.5) * 3;
-                obj.vy = (Math.random() - 0.5) * 3;
-                synth.playPop();
-            });
-        }
-
-        // --- TECLADO Y SOPLADOR DE PALABRAS ---
-        function toggleKeyboardDrawer() {
-            const kbd = document.getElementById('g4-keyboard-drawer');
-            const drawer = document.getElementById('g4-stickers-drawer');
-            drawer.classList.remove('active');
-            kbd.classList.toggle('active');
-            synth.playPop();
-        }
-
-        function pressKey(val) {
-            const input = document.getElementById('g4-key-input');
-            if (val === 'BORRAR') {
-                input.value = '';
-                synth.playError();
-            } else {
-                input.value += val;
-                synth.playPop();
-            }
-        }
-
-        function blowWord() {
-            const input = document.getElementById('g4-key-input');
-            const text = input.value.trim();
-            if (!text) return;
-
-            const wrapper = document.getElementById('g4-sandbox-wrapper');
-            const el = document.createElement('div');
-            el.className = 'g4-element g4-block-text';
-            el.innerText = text;
-            wrapper.appendChild(el);
-
-            // Limpiar input y cerrar teclado
-            input.value = '';
-            document.getElementById('g4-keyboard-drawer').classList.remove('active');
-
-            // Físicas
-            const rect = el.getBoundingClientRect();
-            const sizeW = rect.width || 120;
-            const sizeH = rect.height || 45;
-            const startX = (g4Width - sizeW) / 2;
-            const startY = g4Height - sizeH - 40;
-
-            const physObj = {
-                el: el,
-                x: startX,
-                y: startY,
-                vx: (Math.random() - 0.5) * 2.5,
-                vy: -3, // Impulso soplado hacia arriba
-                width: sizeW,
-                height: sizeH,
-                parentWidth: g4Width,
-                parentHeight: g4Height,
-                isDragging: false
-            };
-
-            activePhysicsObjects.push(physObj);
-            setupSandboxDrag(physObj);
-
-            // Explosión de chispas en la base del soplador
-            spawnParticles(g4Width / 2, g4Height - 20, 20, '#06b6d4');
-            synth.playWin();
-        }
-
-        // --- MICRÓFONO MÁGICO / GRABADOR DE VOZ ---
-        function setupMicRecorder() {
-            // Inicialización sutil del soporte de audio
-            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                console.log("Soporte de micrófono listo.");
-            }
-        }
-
-        function toggleMicRecording() {
-            const btn = document.getElementById('btn-mic');
-            synth.init();
-
-            if (!state.isRecordingMic) {
-                // Iniciar Grabación
-                navigator.mediaDevices.getUserMedia({ audio: true })
-                    .then(stream => {
-                        state.isRecordingMic = true;
-                        btn.innerText = "🛑 Grabando...";
-                        btn.style.background = "var(--error)";
-                        btn.style.boxShadow = "0 0 15px var(--error)";
-                        
-                        state.audioChunks = [];
-                        state.mediaRecorder = new MediaRecorder(stream);
-                        state.mediaRecorder.ondataavailable = e => {
-                            state.audioChunks.push(e.data);
-                        };
-                        state.mediaRecorder.onstop = () => {
-                            const audioBlob = new Blob(state.audioChunks, { type: 'audio/ogg; codecs=opus' });
-                            const audioUrl = URL.createObjectURL(audioBlob);
-                            
-                            // Crear Criatura de Sonido
-                            spawnSoundCreature(audioUrl);
-                        };
-                        state.mediaRecorder.start();
-                    })
-                    .catch(err => {
-                        console.warn("Permiso de micrófono denegado o no disponible. Usando simulador.");
-                        simulateMicRecording();
-                    });
-            } else {
-                // Detener Grabación
-                state.isRecordingMic = false;
-                btn.innerText = "🎙️ Grabar Voz";
-                btn.style.background = "";
-                btn.style.boxShadow = "";
-                
-                if (state.mediaRecorder && state.mediaRecorder.state !== 'inactive') {
-                    state.mediaRecorder.stop();
-                    // Detener todos los tracks de la cámara/mic
-                    state.mediaRecorder.stream.getTracks().forEach(track => track.stop());
-                }
-            }
-        }
-
-        // Simulador de grabación si no hay micrófono físico
-        function simulateMicRecording() {
-            const btn = document.getElementById('btn-mic');
-            state.isRecordingMic = true;
-            btn.innerText = "🛑 Grabando...";
-            btn.style.background = "var(--error)";
-            btn.style.boxShadow = "0 0 15px var(--error)";
-
-            setTimeout(() => {
-                state.isRecordingMic = false;
-                btn.innerText = "🎙️ Grabar Voz";
-                btn.style.background = "";
-                btn.style.boxShadow = "";
-                spawnSoundCreature(null); // Generar una criatura simulada con Web Audio
-            }, 3000);
-        }
-
-        function spawnSoundCreature(audioUrl) {
-            const wrapper = document.getElementById('g4-sandbox-wrapper');
-            const el = document.createElement('div');
-            el.className = 'g4-element g4-sound-creature';
-            
-            // Elegir un emoji lindo para la criatura
-            const creatures = ["👾", "🍥", "👻", "🌸", "🧸", "🎈"];
-            el.innerText = creatures[Math.floor(Math.random() * creatures.length)];
-            wrapper.appendChild(el);
-
-            const size = 90;
-            const startX = (g4Width - size) / 2;
-            const startY = (g4Height - size) / 2;
-
-            const physObj = {
-                el: el,
-                audioUrl: audioUrl,
-                x: startX,
-                y: startY,
-                vx: (Math.random() - 0.5) * 2,
-                vy: (Math.random() - 0.5) * 2,
-                width: size,
-                height: size,
-                parentWidth: g4Width,
-                parentHeight: g4Height,
-                isDragging: false,
-                playbackSpeed: 1.0 // 1.0 = normal, 0.5 = lento, 2.0 = rapido
-            };
-
-            activePhysicsObjects.push(physObj);
-            setupSandboxDrag(physObj);
-
-            // Reproducir sonido al hacer clic en la criatura
-            el.addEventListener('click', (e) => {
-                if (physObj.isDragging) return;
-                
-                // Rotar velocidades al hacer clic de forma graciosa
-                const speeds = [1.0, 0.5, 2.0];
-                const currentIdx = speeds.indexOf(physObj.playbackSpeed);
-                physObj.playbackSpeed = speeds[(currentIdx + 1) % speeds.length];
-                
-                // Efecto visual de escala al hablar
-                el.style.transform = "scale(1.3)";
-                setTimeout(() => el.style.transform = "", 300);
-
-                if (physObj.audioUrl) {
-                    // Reproducir el audio real de Danna
-                    const audio = new Audio(physObj.audioUrl);
-                    audio.playbackRate = physObj.playbackSpeed;
-                    audio.play();
-                } else {
-                    // Sonido sintetizado gracioso
-                    synth.playSuccess();
-                    if (physObj.playbackSpeed === 0.5) {
-                        synth.playError(); // Sonido grave/lento
-                    } else if (physObj.playbackSpeed === 2.0) {
-                        synth.playPop(); // Sonido rápido/agudo
-                    }
-                }
-                
-                // Chispitas de colores
-                const bounds = el.getBoundingClientRect();
-                spawnParticles(bounds.left + 45, bounds.top + 45, 12, '#ec4899');
-            });
-
-            // Explosión estelar
-            spawnParticles(g4Width / 2, g4Height / 2, 20, '#ec4899');
-            synth.playSuccess();
-        }
-
-        // --- ASISTENTE ROBOT 🤖 ---
-        function triggerRobotSpeech() {
-            const bubble = document.getElementById('g4-robot-bubble');
-            const phrases = [
-                "¡Qué hermoso planeta estás haciendo, Danna! ⭐",
-                "¡Me encantan las cosas que haces flotar! 🚀",
-                "¡Eres la más creativa del universo! 💖",
-                "¡Toma una foto de tu planeta! 📸",
-                "¡Sopla palabras divertidas al espacio! 🌬️"
-            ];
-            bubble.innerText = phrases[Math.floor(Math.random() * phrases.length)];
-            bubble.style.display = 'block';
-            
-            // Explosión de chispas alrededor del robot
-            const robotRect = document.getElementById('g4-robot').getBoundingClientRect();
-            const wrapperRect = g4SandboxWrapper.getBoundingClientRect();
-            spawnParticles(robotRect.left - wrapperRect.left + 30, robotRect.top - wrapperRect.top + 30, 15, '#06b6d4');
-            synth.playSuccess();
-
-            setTimeout(() => {
-                bubble.style.display = 'none';
-            }, 4000);
-        }
-
-        // --- TOMAR FOTO 📸 ---
-        function takeSandboxPhoto() {
-            synth.playSnapPhoto();
-            
-            // Destello blanco
-            const flash = document.getElementById('g4-flash');
-            flash.classList.add('active');
-            setTimeout(() => flash.classList.remove('active'), 600);
-
-            // Generar una versión en la Polaroid
-            const shot = document.getElementById('g4-polaroid-shot');
-            shot.innerHTML = '';
-
-            // Copiar los emojis flotantes al cuadro de foto
-            const elements = g4SandboxWrapper.querySelectorAll('.g4-sticker, .g4-sound-creature, .g4-block-text');
-            elements.forEach((el, index) => {
-                if (index > 4) return; // Limitar
-                const copy = document.createElement('div');
-                copy.innerText = el.innerText;
-                copy.style.fontSize = '3rem';
-                copy.style.margin = '0.5rem';
-                copy.style.display = 'inline-block';
-                copy.style.animation = 'floatSlow 3s ease-in-out infinite';
-                shot.appendChild(copy);
-            });
-
-            if (elements.length === 0) {
-                shot.innerHTML = '<span style="color:#9ca3af; font-size:1.1rem; text-align:center;">Un lienzo de estrellas ✨</span>';
-            }
-
-            // Mostrar polaroid
-            document.getElementById('g4-polaroid-overlay').classList.add('active');
-        }
-
-        function closePhoto() {
-            document.getElementById('g4-polaroid-overlay').classList.remove('active');
-            synth.playPop();
-        }
-
-        function clearSandbox() {
-            // Eliminar todos los trazos y stickers del DOM
-            const elements = g4SandboxWrapper.querySelectorAll('.g4-constellation-dot, .g4-sticker, .g4-sound-creature, .g4-block-text');
-            elements.forEach(el => el.remove());
-
-            // Limpiar la lista de físicas
-            activePhysicsObjects.length = activePhysicsObjects.filter(obj => !obj.isDrawingTrace && !obj.itemId).length;
-            synth.playError();
-        }
-
-
-        /* ==============================================
-           MODAL DE CELEBRACIÓN Y PISTAS
-           ============================================== */
-        let celebrationCallback = null;
-
-        function triggerCelebration(title, desc, nextAction) {
-            const modal = document.getElementById('celebration-modal');
-            document.getElementById('modal-title').innerText = title;
-            document.getElementById('modal-desc').innerText = desc;
-            
-            const emojis = ["🎉", "🚀", "👑", "🌈", "⭐", "🏆", "🌟", "🪐"];
-            document.getElementById('modal-emoji').innerText = emojis[Math.floor(Math.random() * emojis.length)];
-
-            celebrationCallback = nextAction;
-            modal.classList.add('active');
-            synth.playWin();
-
-            const w = window.innerWidth;
-            const h = window.innerHeight;
-            spawnParticles(w * 0.25, h * 0.5, 40, '#ec4899');
-            spawnParticles(w * 0.75, h * 0.5, 40, '#06b6d4');
-        }
-
-        function closeCelebration() {
-            const modal = document.getElementById('celebration-modal');
-            modal.classList.remove('active');
-            if (celebrationCallback) {
-                celebrationCallback();
-            }
-        }
-
-        /* === INICIO AUTOMÁTICO DE PARTICULAS Y CANVAS === */
-        window.addEventListener('load', () => {
-            initParticles();
-            updateParticles();
-        });
     </script>
 </body>
 </html>
